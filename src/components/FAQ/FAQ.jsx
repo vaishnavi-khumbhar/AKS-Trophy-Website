@@ -25,10 +25,9 @@ const FAQ = () => {
             <span className="text-[#D4AF37]"> Questions</span>
           </h2>
 
-          <p className="mt-5 text-gray-600 leading-8 max-w-2xl mx-auto">
-            Find quick answers about our trophies, customization,
-            delivery, and ordering process.
-          </p>
+         <p className="mt-5 text-gray-600 leading-8 text-base sm:text-lg md:text-xl font-medium max-w-3xl mx-auto">
+  Find answers to common questions about our premium trophies, customization options, delivery services, and hassle-free ordering process.
+</p>
         </div>
 
         {/* FAQ Accordion */}

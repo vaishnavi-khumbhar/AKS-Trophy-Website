@@ -12,7 +12,43 @@ const FAQ = () => {
   };
 
   return (
-    <section className="bg-[#F8F8F6] pt-32 pb-20">
+<>
+
+      <section className="relative pt-28 pb-28 bg-[#081A3B] overflow-hidden">
+
+  <div className="absolute top-0 left-0 w-64 h-64 bg-[#D4AF37]/10 blur-[100px] rounded-full" />
+
+  <div className="max-w-5xl mx-auto px-5 text-center">
+
+    {/* BADGE */}
+    <span className="inline-block px-3 py-2 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] text-sm">
+      Frequently Asked Questions
+    </span>
+
+    {/* HEADING */}
+    <motion.h1
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
+    >
+      Answers to Your
+      <span className="text-[#D4AF37]"> Common Questions</span>
+    </motion.h1>
+
+    {/* PARAGRAPH */}
+    <p className="mt-4 max-w-2xl mx-auto text-gray-300 leading-7 text-sm sm:text-base">
+      Find quick answers about our trophies, customization options,
+      logo engraving, bulk orders, delivery timelines, and everything
+      you need to know before placing your order with AKS Trophy.
+    </p>
+
+  </div>
+
+</section>
+
+
+{/* faq start */}
+    <section className="bg-[#F8F8F6] pt-10 pb-10">
       <div className="max-w-4xl mx-auto px-5 sm:px-6 lg:px-8">
         
         {/* Heading */}
@@ -26,10 +62,9 @@ const FAQ = () => {
             <span className="text-[#D4AF37]"> We Have Answers</span>
           </h1>
 
-          <p className="mt-5 text-gray-600 leading-8 max-w-2xl mx-auto">
-            Find answers to the most common questions about our trophies,
-            customization options, and delivery process.
-          </p>
+          <p className="mt-5 max-w-3xl mx-auto text-gray-600 leading-8 text-base sm:text-lg md:text-xl font-medium">
+  Explore answers to frequently asked questions about our premium trophies, customization options, ordering process, and timely delivery services.
+</p>
         </div>
 
         {/* FAQ Accordion */}
@@ -107,6 +142,8 @@ const FAQ = () => {
 
       </div>
     </section>
+
+    </>
   );
 };
 

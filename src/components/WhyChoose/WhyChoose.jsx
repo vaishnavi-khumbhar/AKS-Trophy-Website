@@ -65,11 +65,9 @@ const WhyChoose = () => {
               <span className="text-[#D4AF37]"> Award We Create</span>
             </h2>
 
-            <p className="mt-6 text-gray-600 leading-8 text-lg">
-              AKS Trophy delivers premium trophies, medals and mementos
-              crafted with precision to celebrate every achievement with
-              elegance and pride.
-            </p>
+          <p className="mt-6 text-gray-600 leading-8 text-base sm:text-lg md:text-xl font-medium max-w-3xl">
+  AKS Trophy delivers premium trophies, medals, and mementos crafted with precision to celebrate every achievement with elegance, excellence, and pride.
+</p>
 
            
 

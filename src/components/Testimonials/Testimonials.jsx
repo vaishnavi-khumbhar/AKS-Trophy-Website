@@ -42,9 +42,9 @@ const Testimonials = () => {
             </span>
           </h2>
 
-          <p className="mt-5 max-w-2xl mx-auto text-gray-300 leading-8">
-            Hear from schools, organizations, and event planners who trusted AKS Trophy to celebrate achievements.
-          </p>
+         <p className="mt-5 max-w-3xl mx-auto text-gray-300 leading-8 text-base sm:text-lg md:text-xl font-medium">
+  Hear from schools, organizations, and event planners who trust AKS Trophy for premium awards that celebrate achievements with excellence and pride.
+</p>
         </motion.div>
 
         {/* Slider */}

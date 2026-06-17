@@ -69,9 +69,9 @@ const Process = () => {
             </span>
           </h2>
 
-          <p className="mt-5 max-w-2xl mx-auto text-gray-600 leading-8">
-            Our simple and transparent process ensures that every award is crafted to perfection.
-          </p>
+          <p className="mt-5 max-w-3xl mx-auto text-gray-600 leading-8 text-base sm:text-lg md:text-xl font-medium">
+  Our simple and transparent process ensures that every trophy and award is crafted with precision, delivering exceptional quality and elegance in every detail.
+</p>
         </motion.div>
 
         {/* Desktop Timeline */}
@@ -121,57 +121,59 @@ const Process = () => {
         </div>
 
         {/* Mobile Timeline */}
-        <div className="lg:hidden space-y-8">
+    {/* Mobile Timeline */}
+<div className="lg:hidden space-y-6">
 
-          {processSteps.map((step, index) => {
-            const Icon = step.icon;
+  {processSteps.map((step, index) => {
+    const Icon = step.icon;
 
-            return (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.1,
-                }}
-                viewport={{ once: true }}
-                className="flex gap-5"
-              >
-                {/* Timeline */}
-                <div className="flex flex-col items-center">
+    return (
+      <motion.div
+        key={step.id}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{
+          duration: 0.4,
+          delay: index * 0.1,
+        }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center text-center"
+      >
 
-                  <div className="w-14 h-14 rounded-full bg-[#D4AF37] flex items-center justify-center text-[#081A3B] font-bold">
-                    {step.id}
-                  </div>
-
-                  {index !== processSteps.length - 1 && (
-                    <div className="w-1 flex-1 bg-[#D4AF37]/20 mt-2" />
-                  )}
-
-                </div>
-
-                {/* Card */}
-               {/* Card */}
-<div className="mt-6 bg-white rounded-3xl p-6 shadow-lg hover:shadow-2xl transition duration-300 min-h-[280px]">
-
-  <div className="w-16 h-16 rounded-2xl bg-[#081A3B] flex items-center justify-center mx-auto">
-    <Icon className="text-[#D4AF37]" size={30} />
-  </div>
-
-  <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
-    {step.title}
-  </h3>
-
-  <p className="mt-3 text-gray-600 leading-8 text-[15px]">
-    {step.description}
-  </p>
-
-</div>
-              </motion.div>
-            );
-          })}
+        {/* Step Number */}
+        <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center text-[#081A3B] font-bold text-sm shadow-md">
+          {step.id}
         </div>
+
+        {/* Card */}
+        <div className="mt-3 bg-white rounded-2xl p-5 shadow-md hover:shadow-xl transition duration-300 w-full max-w-[320px]">
+
+          {/* Icon */}
+          <div className="w-14 h-14 rounded-2xl bg-[#081A3B] flex items-center justify-center mx-auto">
+            <Icon className="text-[#D4AF37]" size={26} />
+          </div>
+
+          {/* Title */}
+          <h3 className="mt-3 text-lg font-bold text-[#081A3B]">
+            {step.title}
+          </h3>
+
+          {/* Description */}
+          <p className="mt-2 text-gray-600 text-sm leading-6">
+            {step.description}
+          </p>
+
+        </div>
+
+        {/* Connector Line */}
+        {index !== processSteps.length - 1 && (
+          <div className="w-1 h-6 bg-[#D4AF37]/20 mt-3 rounded-full" />
+        )}
+
+      </motion.div>
+    );
+  })}
+</div>
 
       </div>
     </section>

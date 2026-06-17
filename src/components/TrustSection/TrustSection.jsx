@@ -59,10 +59,9 @@ const TrustSection = () => {
             <span className="text-[#D4AF37]"> Businesses & Sports Events</span>
           </h2>
 
-          <p className="mt-5 max-w-2xl mx-auto text-gray-600 leading-8">
-            We deliver premium-quality trophies, medals, and customized awards
-            crafted with precision and excellence to celebrate every success.
-          </p>
+          <p className="mt-5 max-w-3xl mx-auto text-gray-600 leading-8 text-base sm:text-lg md:text-xl font-medium">
+  We deliver premium-quality trophies, medals, and customized awards crafted with precision and excellence to celebrate achievements and create lasting memories.
+</p>
         </motion.div>
 
         {/* Cards */}
