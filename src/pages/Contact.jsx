@@ -13,13 +13,13 @@ const Contact = () => {
     <>
       {/* HERO */}
 
-      <section className="relative pt-24 md:pt-28 pb-20 md:pb-28 bg-[#081A3B] overflow-hidden">
+      <section className="relative pt-24 md:pt-35 pb-20 md:pb-28 bg-[#081A3B] overflow-hidden">
 
-  <div className="absolute top-0 left-0 w-72 md:w-96 h-72 md:h-96 bg-[#D4AF37]/10 blur-[150px] rounded-full"></div>
+  <div className="absolute top-0 left-0 w-72 md:w-96 h-72 md:h-96 bg-[#FFD700]/10 blur-[150px] rounded-full"></div>
 
   <div className="max-w-7xl mx-auto px-4 sm:px-5 text-center">
 
-    <span className="inline-block px-3 py-2 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] text-sm">
+    <span className="inline-block px-3 py-2 rounded-full bg-[#FFD700]/10 text-[#FFD700] text-sm">
       Contact AKS Trophy
     </span>
 
@@ -29,7 +29,7 @@ const Contact = () => {
       className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
     >
       Let's Create Something
-      <span className="text-[#D4AF37]"> Memorable</span>
+      <span className="text-[#FFD700]"> Memorable</span>
     </motion.h1>
 
     <p className="mt-6 max-w-3xl mx-auto text-gray-300 leading-7 md:leading-8 text-sm sm:text-base">
@@ -57,7 +57,7 @@ const Contact = () => {
               className="bg-white rounded-[30px] p-8 shadow-lg text-center"
             >
               <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <Phone className="text-[#D4AF37]" />
+                <Phone className="text-[#FFD700]" />
               </div>
 
               <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
@@ -79,7 +79,7 @@ const Contact = () => {
               className="bg-white rounded-[30px] p-8 shadow-lg text-center"
             >
               <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <MessageCircle className="text-[#D4AF37]" />
+                <MessageCircle className="text-[#FFD700]" />
               </div>
 
               <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
@@ -99,7 +99,7 @@ const Contact = () => {
               className="bg-white rounded-[30px] p-8 shadow-lg text-center"
             >
               <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <Mail className="text-[#D4AF37]" />
+                <Mail className="text-[#FFD700]" />
               </div>
 
               <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
@@ -118,7 +118,7 @@ const Contact = () => {
               className="bg-white rounded-[30px] p-8 shadow-lg text-center"
             >
               <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <Clock className="text-[#D4AF37]" />
+                <Clock className="text-[#FFD700]" />
               </div>
 
               <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
@@ -161,30 +161,30 @@ const Contact = () => {
     <input
       type="text"
       placeholder="Your Name"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#D4AF37]"
+      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
     />
 
     <input
       type="tel"
       placeholder="Phone Number"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#D4AF37]"
+      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
     />
 
     <input
       type="email"
       placeholder="Email Address"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#D4AF37]"
+      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
     />
 
     <textarea
       rows="5"
       placeholder="Your Requirement"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#D4AF37]"
+      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
     />
 
     <button
       type="submit"
-      className="w-full bg-[#D4AF37] text-[#081A3B] py-4 rounded-xl font-semibold hover:scale-[1.02] transition"
+      className="w-full bg-[#FFD700] text-[#081A3B] py-4 rounded-xl font-semibold hover:scale-[1.02] transition"
     >
       Send Inquiry
     </button>
@@ -206,7 +206,7 @@ const Contact = () => {
                 <div className="mt-8 flex gap-4">
 
                   <MapPin
-                    className="text-[#D4AF37] mt-1"
+                    className="text-[#FFD700] mt-1"
                     size={22}
                   />
 
@@ -250,18 +250,18 @@ const Contact = () => {
     <div className="relative overflow-hidden rounded-[32px] md:rounded-[40px] bg-gradient-to-r from-[#081A3B] via-[#0D2552] to-[#081A3B] px-5 sm:px-8 py-12 md:py-16 text-center shadow-2xl">
 
       {/* Glow Effect */}
-      <div className="absolute -top-20 -left-20 w-60 h-60 bg-[#D4AF37]/20 blur-[120px] rounded-full"></div>
-      <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-[#D4AF37]/20 blur-[120px] rounded-full"></div>
+      <div className="absolute -top-20 -left-20 w-60 h-60 bg-[#FFD700]/20 blur-[120px] rounded-full"></div>
+      <div className="absolute -bottom-20 -right-20 w-60 h-60 bg-[#FFD700]/20 blur-[120px] rounded-full"></div>
 
       {/* Badge */}
-      <span className="inline-block px-4 py-2 rounded-full bg-[#D4AF37]/10 text-[#D4AF37] text-sm font-medium border border-[#D4AF37]/30">
+      <span className="inline-block px-4 py-2 rounded-full bg-[#FFD700]/10 text-[#FFD700] text-sm font-medium border border-[#FFD700]/30">
         Premium Trophy Collection
       </span>
 
       {/* Heading */}
      <h2 className="mt-6 text-2xl sm:text-3xl md:text-5xl font-bold text-white leading-tight">
   Ready To Celebrate
-  <span className="text-[#D4AF37]"> Every Achievement?</span>
+  <span className="text-[#FFD700]"> Every Achievement?</span>
 </h2>
 
       {/* Paragraph */}
@@ -278,7 +278,7 @@ const Contact = () => {
     href="https://wa.me/91XXXXXXXXXX"
     target="_blank"
     rel="noopener noreferrer"
-    className="inline-flex items-center justify-center gap-2 bg-[#D4AF37] text-[#081A3B] px-8 py-4 rounded-full font-semibold hover:scale-105 transition duration-300 shadow-lg"
+    className="inline-flex items-center justify-center gap-2 bg-[#FFD700] text-[#081A3B] px-8 py-4 rounded-full font-semibold hover:scale-105 transition duration-300 shadow-lg"
   >
     <MessageCircle size={20} />
     Chat on WhatsApp

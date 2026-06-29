@@ -1,259 +1,266 @@
-import { motion } from "framer-motion";
-import { ArrowRight, Phone, Award, Truck } from "lucide-react";
-import heroImage from "../../assets/images/hero/hero-trophy.png";
-import { useEffect, useState } from "react";
+import {
+  FaTruck,
+  FaCheckCircle,
+  FaArrowRight,
+} from "react-icons/fa";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
-
-
-const Counter = ({ end }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let current = 0;
-
-    const increment = end / 100;
-
-    const timer = setInterval(() => {
-      current += increment;
-
-      if (current >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, 20);
-
-    return () => clearInterval(timer);
-  }, [end]);
-
-  return <>{count.toLocaleString()}</>;
-};
+import trophyImg from "../../assets/trophyImg.jpeg";
+import RemoveMobile from "../../assets/Remove.png";
 
 const Hero = () => {
   return (
-<section className="
-relative
-overflow-hidden
-pt-[100px]
-lg:pt-[120px]
-pb-16
-bg-gradient-to-br
-from-[#F9F4E8]
-via-[#FFFDF8]
-to-[#F5E6BE]
-">
-      {/* Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section className="relative overflow-hidden bg-[#06152E] mt-3 pt-30 sm:pt-30 lg:pt-40 pb-20 sm:pb-28 lg:pb-30">
+      {/* Desktop-only background trophy image — hidden on mobile/tablet so only the RemoveMobile image shows there */}
+      <div
+        className="hidden lg:block absolute inset-0"
+        style={{
+          backgroundImage: `url(${trophyImg})`,
+          backgroundSize: "contain",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "right center",
+        }}
+      ></div>
 
-        <div className="absolute top-10 left-10 w-72 h-72 bg-yellow-300/30 rounded-full blur-[120px]" />
-
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-orange-200/40 rounded-full blur-[140px]" />
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] border border-yellow-300/20 rounded-full" />
-
+      {/* Golden ambient glow animation — drifts behind everything, mobile + desktop */}
+      <div className="absolute inset-0 pointer-events-none animate-bg-glow-shift">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 20% 30%, rgba(250,204,21,0.18), transparent 38%), radial-gradient(circle at 85% 20%, rgba(250,204,21,0.14), transparent 35%), radial-gradient(circle at 70% 80%, rgba(250,204,21,0.10), transparent 32%)",
+          }}
+        ></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      {/* Dark Overlay */}
+      <div className="absolute inset-0 bg-[#06152E]/10"></div>
 
-<div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
+     
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
           {/* LEFT CONTENT */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center lg:text-left"
-          >
+          <div className="text-center lg:text-left">
+            <p className="font-[cursive] italic text-white text-2xl sm:text-3xl mb-1 animate-hero-fade-in" style={{ animationDelay: "0ms" }}>
+              Premium Trophy
+            </p>
 
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white px-5 py-2 rounded-full shadow-lg border border-yellow-200">
-
-              <Award size={16} className="text-[#D4AF37]" />
-
-              <span className="text-sm font-semibold text-[#D4AF37]">
-                Award Winning Trophy Manufacturer
-              </span>
-
-            </div>
-
-            {/* Heading */}
-            <h1 className="mt-6 leading-[1.05] font-bold">
-
-              <span className="block text-[#0A1F44] text-[2.3rem] sm:text-5xl lg:text-7xl">
-                Premium Trophies
+            <h1 className="font-extrabold leading-[1.05] tracking-tight overflow-hidden">
+              <span
+                className="block text-white text-3xl sm:text-4xl lg:text-6xl animate-hero-slide-up"
+                style={{ animationDelay: "120ms" }}
+              >
+                MANUFACTURER
               </span>
 
               <span
-  className="
-  block
-  whitespace-nowrap
-  text-[2rem]
-  sm:text-5xl
-  lg:text-[5.2rem]
-  bg-gradient-to-r
-  from-[#D4AF37]
-  via-[#F7D978]
-  to-[#D4AF37]
-  bg-clip-text
-  text-transparent
-  "
->
-  Awards & Mementos
-</span>
-              <span className="block text-[#0A1F44] text-[2.3rem] sm:text-5xl lg:text-7xl">
-                in Maharashtra
+                className="block text-yellow-400 text-3xl sm:text-4xl lg:text-6xl mt-1 animate-hero-slide-up animate-hero-shine"
+                style={{ animationDelay: "320ms" }}
+              >
+                IN MAHARASHTRA
               </span>
-
             </h1>
 
-            {/* Description */}
-            <p className="mt-6 text-gray-700 text-lg leading-8 max-w-xl mx-auto lg:mx-0">
-              AKS Trophy is a leading trophy manufacturer and supplier in
-              Maharashtra offering premium trophies, awards, medals and
-              customized mementos for schools, colleges, corporates and events.
-            </p>
-
-            <p className="mt-4 text-gray-600 text-base leading-7 max-w-xl mx-auto lg:mx-0">
-              We provide
-              <span className="text-[#D4AF37] font-bold">
-                {" "}100+ unique trophy designs{" "}
+            <div className="flex items-center justify-center lg:justify-start gap-2 mt-4 mb-5 animate-hero-fade-in" style={{ animationDelay: "480ms" }}>
+              <span className="h-[2px] w-10 bg-yellow-500"></span>
+              <span className="text-yellow-400 tracking-[6px] text-xs">
+                ★ ★ ★
               </span>
-              with logo engraving, name printing and premium finishing.
+              <span className="h-[2px] w-10 bg-yellow-500"></span>
+            </div>
+
+            <p className="text-white text-lg sm:text-xl animate-hero-fade-in" style={{ animationDelay: "560ms" }}>
+              <span className="text-yellow-400 font-bold">800+</span> Trophy
+              Designs for Every Achievement
             </p>
 
-            {/* Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <div className="mt-5 flex flex-wrap justify-center lg:justify-start gap-3 max-w-2xl animate-hero-fade-in" style={{ animationDelay: "640ms" }}>
+  {[
+    "Wooden",
+    "Acrylic",
+    "Metal",
+    "Glass",
+    "Fiber",
+    "Shields",
+    "Medals",
+    "Cups",
+    "Mementos",
+  ].map((item, index) => (
+    <span
+      key={index}
+      className="px-4 py-2 rounded-full border border-yellow-400/40 bg-white/10 backdrop-blur-md text-white text-sm sm:text-base font-medium hover:bg-yellow-400 hover:text-[#06152E] transition-all duration-300 shadow-lg"
+    >
+      ✦ {item}
+    </span>
+  ))}
+</div>
 
-              <button className="group px-8 py-4 rounded-full font-bold bg-gradient-to-r from-[#D4AF37] to-[#F4D06F] text-[#0A1F44] shadow-xl hover:scale-105 transition">
+            <p className="font-[cursive] italic text-yellow-400 text-3xl sm:text-4xl mt-4 animate-hero-fade-in" style={{ animationDelay: "720ms" }}>
+              Customized Trophies Available
+            </p>
 
-                <span className="flex items-center justify-center gap-2">
-                  Explore Collection
-                  <ArrowRight
-                    size={18}
-                    className="group-hover:translate-x-1 transition"
-                  />
-                </span>
+            {/* MOBILE/TABLET ONLY IMAGE — hidden on desktop (lg), keeps desktop content/layout untouched */}
+            <div className="lg:hidden flex justify-center mt-6 animate-hero-image-in" style={{ animationDelay: "820ms" }}>
+              <div className="relative animate-hero-glow-pulse">
+                <img
+                  src={RemoveMobile}
+                  alt="Premium trophy designs - wooden, acrylic, metal, glass and medals"
+                  className="w-full max-w-sm sm:max-w-md h-auto object-contain relative z-10"
+                />
+              </div>
+            </div>
 
-              </button>
+            {/* FEATURES */}
+            <div className="mt-8 flex flex-col lg:flex-row items-center gap-6">
+              <div className="flex items-center gap-3">
+                <FaCheckCircle className="text-yellow-400 text-2xl" />
 
+                <div>
+                  <h4 className="text-white font-semibold">
+                    Wholesale & Retail
+                  </h4>
+
+                  <p className="text-gray-300 text-sm">Available</p>
+                </div>
+              </div>
+
+              <div className="hidden lg:block text-white/40 text-3xl">|</div>
+
+              <div className="flex items-center gap-3">
+                <FaIndianRupeeSign className="text-yellow-400 text-2xl" />
+
+                <div>
+                  <h4 className="text-white font-semibold">
+                    Prices Start From
+                  </h4>
+
+                  <p className="text-yellow-400 font-bold">
+                    ₹50{" "}
+                    <span className="text-white font-normal">to</span> ₹50,000
+                  </p>
+                </div>
+              </div>
+
+              <div className="hidden lg:block text-white/40 text-3xl">|</div>
+
+              <div className="flex items-center gap-3">
+                <FaTruck className="text-yellow-400 text-2xl" />
+
+                <div>
+                  <h4 className="text-white font-semibold">
+                    Delivery Across
+                  </h4>
+
+                  <p className="text-gray-300 text-sm">Maharashtra</p>
+                </div>
+              </div>
+            </div>
+
+            {/* BUTTONS */}
+            <div className="flex flex-col sm:flex-row gap-4 mt-10 justify-center lg:justify-start">
               <a
-                href="https://wa.me/91YOURNUMBER"
-                target="_blank"
-                rel="noreferrer"
-                className="px-8 py-4 rounded-full font-semibold border-2 border-[#D4AF37] text-[#0A1F44] hover:bg-[#D4AF37] hover:text-white transition flex items-center justify-center gap-2"
+                href="/products"
+                className="flex items-center justify-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-[#06152E] font-bold px-7 py-3.5 rounded-full transition-all duration-300"
               >
-                <Phone size={18} />
-                Get Custom Quote
+                Browse 800+ Designs
+                <FaArrowRight />
               </a>
 
+              <a
+                href="/contact"
+                className="flex items-center justify-center gap-2 border border-yellow-500 text-white hover:bg-yellow-500 hover:text-[#06152E] px-7 py-3.5 rounded-full transition-all duration-300"
+              >
+                Get Custom Quote
+                <FaArrowRight />
+              </a>
             </div>
-
-            {/* Stats */}
-           <div className="grid grid-cols-3 gap-4 mt-10">
-
-  <div className="bg-white/90 backdrop-blur-md border border-yellow-100 rounded-3xl p-5 shadow-xl hover:-translate-y-2 transition-all duration-300">
-
-    <h3 className="text-3xl lg:text-4xl font-extrabold text-[#D4AF37]">
-      <Counter end={100} suffix="+" />
-    </h3>
-
-    <p className="text-gray-600 text-sm font-medium mt-1">
-      Trophy Designs
-    </p>
-
-  </div>
-
-  <div className="bg-white/90 backdrop-blur-md border border-yellow-100 rounded-3xl p-5 shadow-xl hover:-translate-y-2 transition-all duration-300">
-
-    <h3 className="text-3xl lg:text-4xl font-extrabold text-[#D4AF37]">
-      <Counter end={5000} suffix="+" />
-    </h3>
-
-    <p className="text-gray-600 text-sm font-medium mt-1">
-      Happy Clients
-    </p>
-
-  </div>
-
-  <div className="bg-white/90 backdrop-blur-md border border-yellow-100 rounded-3xl p-5 shadow-xl hover:-translate-y-2 transition-all duration-300">
-
-    <h3 className="text-3xl lg:text-4xl font-extrabold text-[#D4AF37]">
-      <Counter end={15} suffix="+" />
-    </h3>
-
-    <p className="text-gray-600 text-sm font-medium mt-1">
-      Years Experience
-    </p>
-
-  </div>
-
-</div>
-          </motion.div>
+          </div>
 
           {/* RIGHT IMAGE */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: [0, -10, 0],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-            }}
-            className="relative flex justify-center"
-          >
-
-            {/* Floating Card */}
-            <div
-              className="
-              relative
-              bg-white/50
-              backdrop-blur-xl
-              border
-              border-white/50
-              rounded-[40px]
-              p-6 lg:p-10
-              shadow-[0_20px_80px_rgba(212,175,55,0.2)]
-              "
-            >
-
-              {/* Floating Badge 1 */}
-              <div className="hidden lg:flex absolute top-10 -right-8 bg-white rounded-2xl px-4 py-3 shadow-xl items-center gap-2">
-
-                <Award size={18} className="text-[#D4AF37]" />
-
-                <span className="font-semibold text-sm">
-                  Premium Finish
-                </span>
-
-              </div>
-
-              {/* Floating Badge 2 */}
-              <div className="hidden lg:flex absolute bottom-16 -left-8 bg-white rounded-2xl px-4 py-3 shadow-xl items-center gap-2">
-
-                <Truck size={18} className="text-[#D4AF37]" />
-
-                <span className="font-semibold text-sm">
-                  Fast Delivery
-                </span>
-
-              </div>
-
-              <img
-                src={heroImage}
-                alt="Premium Trophy"
-                className="w-full max-w-[300px] lg:max-w-[450px] drop-shadow-[0_30px_40px_rgba(212,175,55,0.35)]"
-              />
-
-            </div>
-
-          </motion.div>
-
+        
         </div>
-
       </div>
+
+      {/* Hero entrance + ambient animations — scoped to this component */}
+      <style>{`
+        @keyframes heroFadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroSlideUp {
+          from { opacity: 0; transform: translateY(100%); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroShine {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        @keyframes heroImageIn {
+          from { opacity: 0; transform: translateY(20px) scale(0.96); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes heroGlowPulse {
+          0%, 100% { opacity: 0.35; transform: scale(0.96); }
+          50% { opacity: 0.7; transform: scale(1.04); }
+        }
+        @keyframes bgGlowShift {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(2%, -2%) scale(1.06); }
+        }
+
+        .animate-hero-fade-in {
+          opacity: 0;
+          animation: heroFadeIn 0.7s ease-out forwards;
+        }
+        .animate-hero-slide-up {
+          opacity: 0;
+          animation: heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .animate-hero-shine {
+          background-image: linear-gradient(
+            100deg,
+            #facc15 30%,
+            #fff7cc 45%,
+            #facc15 60%
+          );
+          background-size: 250% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          animation:
+            heroSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+            heroShine 3.5s ease-in-out 1.2s infinite;
+        }
+        .animate-hero-image-in {
+          opacity: 0;
+          animation: heroImageIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        .animate-hero-glow-pulse::before {
+          content: "";
+          position: absolute;
+          inset: -10%;
+          background: radial-gradient(circle, rgba(250,204,21,0.35), transparent 70%);
+          filter: blur(20px);
+          animation: heroGlowPulse 3s ease-in-out infinite;
+          z-index: 0;
+        }
+        .animate-bg-glow-shift {
+          animation: bgGlowShift 8s ease-in-out infinite;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-hero-fade-in,
+          .animate-hero-slide-up,
+          .animate-hero-shine,
+          .animate-hero-image-in,
+          .animate-hero-glow-pulse::before,
+          .animate-bg-glow-shift {
+            animation: none;
+            opacity: 1;
+          }
+        }
+      `}</style>
     </section>
   );
 };

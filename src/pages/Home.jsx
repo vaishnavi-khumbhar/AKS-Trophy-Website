@@ -7,6 +7,7 @@ import Process from "../components/Process/Process";
 import Testimonials from "../components/Testimonials/Testimonials";
 import FAQ from "../components/FAQ/FAQ";
 import CTA from "../components/CTA/CTA";
+import FetureBar from "../components/FeatureBar";
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
     <>
       <Hero />
 
+      <FetureBar/>
       <TrustSection />
 
       <Categories />
