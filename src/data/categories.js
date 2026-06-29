@@ -33,7 +33,7 @@ export const categories = [
 
   {
     id: 4,
-    title: "Big Size Metal     Trophies",
+    title: "Big Size Metal Trophies",
     count: "28 Products",
     image: metalImg,
     description:

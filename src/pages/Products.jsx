@@ -104,7 +104,7 @@ const handleWhatsAppEnquiry = (productName = "Hello, I want to enquire about you
   );
 
   window.open(
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
+    `https://wa.me/${9307623168}?text=${message}`,
     "_blank"
   );
 };
@@ -195,7 +195,7 @@ const Products = () => {
                 </a>
 
                 <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}`}
+                  href={`https://wa.me/${9307623168}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:bg-green-700 hover:scale-105 transition"
@@ -536,7 +536,7 @@ const Products = () => {
             </Link>
 
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi AKS Trophy, I am interested in ${product.name}`}
+              href={`https://wa.me/${9307623168}?text=Hi AKS Trophy, I am interested in ${product.name}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 rounded-lg sm:rounded-xl bg-[#081A3B] py-2 text-xs sm:text-sm font-bold text-white hover:scale-105 transition"
@@ -628,7 +628,7 @@ const Products = () => {
                         </Link>
 
                         <a
-                          href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi AKS Trophy, I am interested in ${product.name}`}
+                          href={`https://wa.me/${9307623168}?text=Hi AKS Trophy, I am interested in ${product.name}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-[#081A3B] py-2 rounded-lg text-xs sm:text-sm font-semibold hover:scale-105 transition"
@@ -829,7 +829,7 @@ const Products = () => {
 <div className="mt-14 flex flex-wrap justify-center gap-4">
 
   <a
-    href="tel:+919999999999"
+    href="tel:+9307623168"
     className="inline-flex items-center gap-2 rounded-full border-2 border-[#081A3B] px-8 py-4 font-semibold text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition-all duration-300 hover:scale-105"
   >
     <Phone size={18} />
@@ -837,7 +837,7 @@ const Products = () => {
   </a>
 
   <a
-    href={`https://wa.me/${WHATSAPP_NUMBER}`}
+    href={`https://wa.me/${9307623168}`}
     target="_blank"
     rel="noopener noreferrer"
     className="inline-flex items-center gap-2 rounded-full bg-[#FFD700] px-8 py-4 font-bold text-[#081A3B] shadow-lg hover:scale-105 hover:shadow-[0_15px_35px_rgba(255,215,0,0.35)] transition-all duration-300"

@@ -127,7 +127,7 @@ const FeaturedProducts = () => {
 </h3>
 
 <a
-  href={`https://wa.me/91YOURNUMBER?text=Hi, I am interested in ${product.name}`}
+  href={`https://wa.me/9307623168?text=Hi, I am interested in ${product.name}`}
   target="_blank"
   rel="noreferrer"
   className="group/btn mt-3 relative flex items-center justify-center gap-2 w-full bg-[#F5C400] hover:bg-[#E5B800] text-[#081A3B] py-3 rounded-xl font-bold transition-all duration-300 shadow-md hover:shadow-lg overflow-hidden"

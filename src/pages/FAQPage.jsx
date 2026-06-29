@@ -133,7 +133,7 @@ const FAQ = () => {
             </p>
 
             <a
-              href="https://wa.me/91YOURNUMBER"
+              href="https://wa.me/9307623168"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-8 bg-[#F5C200] text-[#081A3B] px-8 py-4 rounded-full font-bold hover:bg-yellow-300 hover:scale-105 transition-all duration-300 shadow-lg shadow-yellow-400/20 relative z-10"

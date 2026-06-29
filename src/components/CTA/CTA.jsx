@@ -51,7 +51,7 @@ const CTA = () => {
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5">
 
             <a
-              href="https://wa.me/91YOURNUMBER"
+              href="https://wa.me/9307623168"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-[#F5C200] hover:bg-[#e6b800] text-[#081A3B] px-8 py-4 rounded-full font-bold transition duration-300 hover:scale-105 shadow-lg"
@@ -61,7 +61,7 @@ const CTA = () => {
             </a>
 
             <a
-              href="tel:+91YOURNUMBER"
+              href="tel:+9307623168"
               className="inline-flex items-center justify-center gap-2 border-2 border-[#F5C200] text-white hover:bg-[#F5C200] hover:text-[#081A3B] px-8 py-4 rounded-full font-bold transition duration-300"
             >
               <PhoneCall size={20} />

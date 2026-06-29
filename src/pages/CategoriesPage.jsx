@@ -138,7 +138,7 @@ const CategoriesPage = () => {
                   <div className="mt-8 flex flex-wrap gap-4">
 
                     <a
-                      href={`https://wa.me/91YOURNUMBER?text=Hi AKS Trophy, I am interested in ${category.title}`}
+                      href={`https://wa.me/9307623168?text=Hi AKS Trophy, I am interested in ${category.title}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 bg-[#D4AF37] text-[#081A3B] px-8 py-4 rounded-full font-semibold hover:scale-105 transition"
@@ -183,7 +183,7 @@ const CategoriesPage = () => {
           </p>
 
           <a
-            href="https://wa.me/91YOURNUMBER"
+            href="https://wa.me/9307623168"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 mt-8 bg-[#D4AF37] text-[#081A3B] px-8 py-4 rounded-full font-semibold hover:scale-105 transition"

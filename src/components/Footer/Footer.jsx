@@ -38,7 +38,7 @@ const businessTypes = [
 const socials = [
   { href: "https://facebook.com", icon: <FaFacebookF size={15} />, bg: "bg-[#1877F2]" },
   { href: "https://instagram.com", icon: <FaInstagram size={15} />, bg: "bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#bc1888]" },
-  { href: "https://wa.me/911234567890", icon: <FaWhatsapp size={15} />, bg: "bg-[#25D366]" },
+  { href: "https://wa.me/9307623168", icon: <FaWhatsapp size={15} />, bg: "bg-[#25D366]" },
   { href: "https://youtube.com", icon: <FaYoutube size={15} />, bg: "bg-[#FF0000]" },
 ];
 
@@ -124,7 +124,7 @@ const Footer = () => {
             {/* WhatsApp button */}
             
             <a
-  href="https://wa.me/911234567890"
+  href="https://wa.me/9307623168"
   target="_blank"
   rel="noopener noreferrer"
   className="mt-5 inline-flex items-center gap-2 bg-[#25D366] text-white px-4 py-2.5 rounded-full font-semibold hover:bg-[#1ebe5a] transition text-sm shadow-lg"
@@ -177,18 +177,18 @@ const Footer = () => {
 
              <li>
   <a
-    href="tel:+911234567890"
+    href="tel:+9307623168"
     className="inline-flex items-center gap-3 text-gray-300 hover:text-[#D4AF37] transition text-sm group"
   >
     <span className="w-8 h-8 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center shrink-0 group-hover:bg-[#D4AF37]/20 transition">
       <Phone size={14} className="text-[#D4AF37]" />
     </span>
-    +91 12345 67890
+    +91 9307623168
   </a>
 </li>
 <li>
   <a
-    href="tel:+911234567890"
+    href="tel:+9307623168"
     className="inline-flex items-center gap-3 text-gray-300 hover:text-[#D4AF37] transition text-sm group"
   >
     <span className="w-8 h-8 rounded-lg bg-[#D4AF37]/10 border border-[#D4AF37]/20 flex items-center justify-center shrink-0 group-hover:bg-[#D4AF37]/20 transition">
