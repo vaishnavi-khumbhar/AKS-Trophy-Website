@@ -13,7 +13,7 @@ const Contact = () => {
     <>
       {/* HERO */}
 
-      <section className="relative pt-24 md:pt-35 pb-20 md:pb-28 bg-[#081A3B] overflow-hidden">
+      <section className="relative pt-30 md:pt-35 pb-20 md:pb-25 bg-[#081A3B] overflow-hidden">
 
   <div className="absolute top-0 left-0 w-72 md:w-96 h-72 md:h-96 bg-[#FFD700]/10 blur-[150px] rounded-full"></div>
 
@@ -53,7 +53,7 @@ const Contact = () => {
 
             <motion.a
               whileHover={{ y: -8 }}
-              href="tel:+91XXXXXXXXXX"
+              href="tel:+919307623168"
               className="bg-white rounded-[30px] p-8 shadow-lg text-center"
             >
               <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
@@ -65,7 +65,7 @@ const Contact = () => {
               </h3>
 
               <p className="mt-3 text-gray-600">
-                +91 XXXXX XXXXX
+                +91 9307623168
               </p>
             </motion.a>
 
@@ -73,7 +73,7 @@ const Contact = () => {
 
             <motion.a
               whileHover={{ y: -8 }}
-              href="https://wa.me/91XXXXXXXXXX"
+              href="https://wa.me/9307623168"
               target="_blank"
               rel="noopener noreferrer"
               className="bg-white rounded-[30px] p-8 shadow-lg text-center"
@@ -275,7 +275,7 @@ const Contact = () => {
      <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
 
   <a
-    href="https://wa.me/91XXXXXXXXXX"
+    href="https://wa.me/9307623168"
     target="_blank"
     rel="noopener noreferrer"
     className="inline-flex items-center justify-center gap-2 bg-[#FFD700] text-[#081A3B] px-8 py-4 rounded-full font-semibold hover:scale-105 transition duration-300 shadow-lg"

@@ -112,9 +112,10 @@ const FAQ = () => {
                     {String(index + 1).padStart(2, "0")}
                   </span>
 
-                  <h3 className="text-base sm:text-lg lg:text-xl font-semibold text-[#081A3B]">
-                    {faq.question}
-                  </h3>
+                <h3 className="text-lg sm:text-xl lg:text-2xl font-semibold text-[#081A3B] leading-8">
+  {faq.question}
+</h3>
+                  
                 </div>
 
                 <motion.div
@@ -145,9 +146,10 @@ const FAQ = () => {
                       <div className="flex gap-3">
                         {/* Left accent bar */}
                         <div className="w-1 shrink-0 rounded-full bg-gradient-to-b from-[#F5C200] to-[#F5C200]/20" />
-                        <p className="text-gray-600 text-base leading-7">
-                          {faq.answer}
-                        </p>
+                        
+                    <p className="text-gray-600 text-lg leading-8 py-2">
+  {faq.answer}
+</p>
                       </div>
                     </div>
                   </motion.div>

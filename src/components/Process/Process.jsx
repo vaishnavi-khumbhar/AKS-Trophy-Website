@@ -93,77 +93,89 @@ const Process = () => {
         </motion.div>
 
         {/* DESKTOP TIMELINE */}
-        <div className="hidden lg:grid lg:grid-cols-4 gap-8 relative">
+    <div className="hidden lg:grid lg:grid-cols-4 gap-8 relative">
 
-          {/* Connecting dashed line */}
-          <div className="absolute top-[30px] left-[12%] right-[12%] h-px z-0"
-            style={{ borderTop: "2px dashed rgba(245,194,0,0.35)" }}
-          />
+  {/* Connecting dashed line */}
+  <div
+    className="absolute top-[30px] left-[12%] right-[12%] h-px z-0"
+    style={{ borderTop: "2px dashed rgba(245,194,0,0.35)" }}
+  />
 
-          {processSteps.map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                className="group relative text-center z-10"
-              >
-                {/* Step number circle */}
-                <div className="relative w-14 h-14 mx-auto rounded-full bg-[#F5C200] flex items-center justify-center text-[#081A3B] font-bold text-lg shadow-lg z-10">
-                  {step.id}
-                  {/* Pulse ring */}
-                  <span className="absolute inset-0 rounded-full border-2 border-[#F5C200] animate-ping opacity-20" />
-                </div>
+  {processSteps.map((step, index) => {
+    const Icon = step.icon;
 
-                {/* Card */}
-                <div
-                  className="group relative mt-7 bg-white rounded-2xl px-6 py-7 shadow-md hover:shadow-xl transition-all duration-300 h-[280px] flex flex-col overflow-hidden"
-                  style={{ border: "2px solid rgba(245,194,0,0.25)" }}
-                  onMouseEnter={e => e.currentTarget.style.border = "2px solid #F5C200"}
-                  onMouseLeave={e => e.currentTarget.style.border = "2px solid rgba(245,194,0,0.25)"}
-                >
-                  {/* Corner accents */}
-                  <span className="absolute top-[-2px] left-[-2px] w-4 h-4 border-t-[3px] border-l-[3px] border-yellow-400 rounded-tl-2xl" />
-                  <span className="absolute top-[-2px] right-[-2px] w-4 h-4 border-t-[3px] border-r-[3px] border-yellow-400 rounded-tr-2xl" />
-                  <span className="absolute bottom-[-2px] left-[-2px] w-4 h-4 border-b-[3px] border-l-[3px] border-yellow-400 rounded-bl-2xl" />
-                  <span className="absolute bottom-[-2px] right-[-2px] w-4 h-4 border-b-[3px] border-r-[3px] border-yellow-400 rounded-br-2xl" />
-
-                  {/* Top bar */}
-                  <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] via-[#FFD84D] to-[#F5C200]" />
-
-                  {/* Ghost number */}
-                  <span className="absolute -bottom-2 -right-1 text-7xl font-black text-[#081A3B]/[0.04] select-none pointer-events-none">
-                    {step.id}
-                  </span>
-
-                  {/* Hover glow */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/0 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none rounded-2xl" />
-
-                  {/* Icon box */}
-                  <div className="relative z-10 w-14 h-14 rounded-xl bg-gradient-to-br from-[#0B2C5D] to-[#123D7A] flex items-center justify-center mx-auto shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="text-[#F5C200]" size={28} />
-                    <span className="absolute -top-1.5 -right-1.5 w-3 h-3 bg-[#F5C200] rounded-full border-2 border-white" />
-                  </div>
-
-                  <h3 className="relative z-10 mt-5 text-xl font-bold text-[#081A3B]">
-                    {step.title}
-                  </h3>
-
-                  <p className="relative z-10 mt-3 text-gray-600 leading-7 text-sm">
-                    {step.description}
-                  </p>
-
-                  {/* Bottom bar */}
-                  <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] to-[#FFD84D]" />
-                </div>
-              </motion.div>
-            );
-          })}
+    return (
+      <motion.div
+        key={step.id}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: index * 0.15 }}
+        viewport={{ once: true }}
+        whileHover={{ y: -10 }}
+        className="group relative text-center z-10"
+      >
+        {/* Step circle */}
+        <div className="relative w-14 h-14 mx-auto rounded-full bg-[#F5C200] flex items-center justify-center text-[#081A3B] font-bold text-lg shadow-lg z-10">
+          {step.id}
+          <span className="absolute inset-0 rounded-full border-2 border-[#F5C200] animate-ping opacity-20" />
         </div>
+
+        {/* CARD */}
+        <div
+          className="group relative mt-7 bg-white rounded-2xl px-6 py-6 shadow-md hover:shadow-xl transition-all duration-300 
+          h-[300px] flex flex-col justify-start overflow-hidden"
+          style={{ border: "2px solid rgba(245,194,0,0.25)" }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.border = "2px solid #F5C200")
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.border = "2px solid rgba(245,194,0,0.25)")
+          }
+        >
+          {/* Corner accents */}
+          <span className="absolute top-[-2px] left-[-2px] w-4 h-4 border-t-[3px] border-l-[3px] border-yellow-400 rounded-tl-2xl" />
+          <span className="absolute top-[-2px] right-[-2px] w-4 h-4 border-t-[3px] border-r-[3px] border-yellow-400 rounded-tr-2xl" />
+          <span className="absolute bottom-[-2px] left-[-2px] w-4 h-4 border-b-[3px] border-l-[3px] border-yellow-400 rounded-bl-2xl" />
+          <span className="absolute bottom-[-2px] right-[-2px] w-4 h-4 border-b-[3px] border-r-[3px] border-yellow-400 rounded-br-2xl" />
+
+          {/* Top bar */}
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] via-[#FFD84D] to-[#F5C200]" />
+
+          {/* ghost number */}
+          <span className="absolute -bottom-2 -right-1 text-7xl font-black text-[#081A3B]/[0.04] select-none pointer-events-none">
+            {step.id}
+          </span>
+
+          {/* hover glow */}
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/0 to-yellow-500/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none rounded-2xl" />
+
+          {/* ICON */}
+          <div className="relative z-10 flex flex-col items-center">
+
+            <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#0B2C5D] to-[#123D7A] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <Icon className="text-[#F5C200]" size={28} />
+            </div>
+
+            {/* TITLE */}
+            <h3 className="mt-5 text-2xl font-bold text-[#081A3B] text-center leading-snug">
+              {step.title}
+            </h3>
+
+            {/* DESCRIPTION (FIXED OVERLAP) */}
+            <p className="mt-4 text-gray-600 text-sm sm:text-base leading-7 text-center px-2">
+              {step.description}
+            </p>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] to-[#FFD84D]" />
+        </div>
+      </motion.div>
+    );
+  })}
+</div>
+
+
 
         {/* MOBILE TIMELINE */}
         <div className="lg:hidden space-y-4">

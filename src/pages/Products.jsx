@@ -297,7 +297,7 @@ const Products = () => {
 >
   Explore our premium collection featuring{" "}
   <span className="font-bold text-[#0F1E3D]">11 Trophy Categories</span> and{" "}
-  <span className="font-bold text-[#FF7A00]">800+ Exclusive Designs</span>.
+  <span className="font-bold text-[#0F1E3D]">800+ Exclusive Designs</span>.
   Every trophy is expertly crafted and fully customizable with your{" "}
   <span className="font-semibold text-[#0F1E3D]">
     logo, name, engraving, and branding
@@ -452,102 +452,112 @@ const Products = () => {
         <div className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-[#FFD700] shadow-[0_0_12px_#FFD700]" />
         <div className="h-[2px] w-10 sm:w-16 bg-[#FFD700]" />
       </div>
-
-      <p className="mt-4 sm:mt-5 max-w-2xl mx-auto text-gray-600 text-xs sm:text-sm md:text-base leading-6 sm:leading-7 px-2">
-        Discover our premium collection of trophies, medals and awards
-        crafted with elegant finishing and customized engraving.
-      </p>
+<p
+  className="mt-4 sm:mt-5 max-w-3xl mx-auto px-2 text-gray-600 text-base sm:text-lg md:text-xl leading-8 font-medium"
+  style={{ fontFamily: "'Poppins', sans-serif" }}
+>
+  Discover our premium collection of{" "}
+  <span className="font-semibold text-[#0F1E3D]">
+    trophies, medals, and awards
+  </span>{" "}
+  crafted with exceptional quality, elegant finishes, and precision
+  engraving to celebrate every achievement with pride.
+</p>
     </div>
 
     {/* Products Grid */}
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
 
-      {featured.map((product, index) => {
-        const { badge, price } = getPlaceholderMeta(product.id);
+  {featured.map((product, index) => {
+    const { badge, price } = getPlaceholderMeta(product.id);
 
-        return (
-          <motion.div
-            key={product.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -6 }}
-            className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-[#FFD700]/20 shadow-md sm:shadow-lg hover:border-[#FFD700] hover:shadow-[0_15px_30px_rgba(255,215,0,0.25)] transition-all duration-500"
+    return (
+      <motion.div
+        key={product.id}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: index * 0.05 }}
+        viewport={{ once: true }}
+        whileHover={{ y: -6 }}
+        className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-[#081A3B]/20 shadow-md sm:shadow-lg hover:border-[#081A3B] hover:shadow-[0_15px_30px_rgba(8,26,59,0.25)] transition-all duration-500"
+      >
+
+        {/* Badge */}
+        {badge && (
+          <span
+            className={`absolute top-2 sm:top-4 left-2 sm:left-4 z-20 px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold shadow ${
+              badge === "Best Seller"
+                ? "bg-[#081A3B] text-white"
+                : "bg-[#081A3B] text-white"
+            }`}
           >
+            {badge}
+          </span>
+        )}
 
-            {/* Badge */}
-            {badge && (
-              <span
-                className={`absolute top-2 sm:top-4 left-2 sm:left-4 z-20 px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold shadow ${
-                  badge === "Best Seller"
-                    ? "bg-[#FFD700] text-[#081A3B]"
-                    : "bg-[#081A3B] text-white"
-                }`}
-              >
-                {badge}
-              </span>
-            )}
+        {/* Image */}
+        <div className="relative h-40 sm:h-52 lg:h-64 bg-gradient-to-b from-[#EAF0F8] to-white flex items-center justify-center overflow-hidden p-3 sm:p-5">
 
-            {/* Image */}
-            <div className="relative h-40 sm:h-52 lg:h-64 bg-gradient-to-b from-[#FFF8DC] to-white flex items-center justify-center overflow-hidden p-3 sm:p-5">
+          {/* top bar */}
+          <div className="absolute top-0 left-0 h-1 w-full bg-[#081A3B]" />
 
-              <div className="absolute top-0 left-0 h-1 w-full bg-[#FFD700]" />
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
+          />
+        </div>
 
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-contain transition-all duration-500 group-hover:scale-105 sm:group-hover:scale-110"
-              />
-            </div>
+        {/* Content */}
+        <div className="p-3 sm:p-5 text-center">
 
-            {/* Content */}
-            <div className="p-3 sm:p-5 text-center">
+          <h3 className="text-sm sm:text-lg lg:text-xl font-bold text-[#081A3B] line-clamp-2 group-hover:opacity-90 transition-colors">
+            {product.name}
+          </h3>
 
-              <h3 className="text-xs sm:text-base lg:text-lg font-bold text-[#081A3B] line-clamp-2 group-hover:text-[#FFD700] transition-colors">
-                {product.name}
-              </h3>
+          <p className="mt-2 sm:mt-3 text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#081A3B]">
+            ₹{price}
+          </p>
 
-              <p className="mt-2 sm:mt-3 text-lg sm:text-xl lg:text-2xl font-extrabold text-[#FFD700]">
-                ₹{price}
-              </p>
+          <span className="text-[10px] sm:text-sm text-gray-500">
+            Starting Price
+          </span>
 
-              <span className="text-[10px] sm:text-sm text-gray-500">
-                Starting Price
-              </span>
+          <div className="mx-auto mt-3 sm:mt-4 h-[2px] w-8 sm:w-12 bg-[#081A3B] rounded-full group-hover:w-20 transition-all duration-500"></div>
 
-              <div className="mx-auto mt-3 sm:mt-4 h-[2px] w-8 sm:w-12 bg-[#FFD700] rounded-full group-hover:w-16 sm:group-hover:w-20 transition-all duration-500"></div>
+          {/* Buttons */}
+          <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row gap-2">
 
-              {/* Buttons */}
-              <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row gap-2">
+            <Link
+              to={`/products/${product.id}`}
+              className="flex-1 inline-flex items-center justify-center rounded-lg sm:rounded-xl border border-[#081A3B] py-2 text-xs sm:text-sm font-semibold text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition"
+            >
+              View Details
+            </Link>
 
-                <Link
-                  to={`/products/${product.id}`}
-                  className="flex-1 inline-flex items-center justify-center rounded-lg sm:rounded-xl border border-[#081A3B] py-2 text-[10px] sm:text-sm font-semibold text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition"
-                >
-                  View Details
-                </Link>
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi AKS Trophy, I am interested in ${product.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 rounded-lg sm:rounded-xl bg-[#081A3B] py-2 text-xs sm:text-sm font-bold text-white hover:scale-105 transition"
+            >
+              <MessageCircle size={16} />
+              Enquire
+            </a>
 
-                <a
-                  href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi AKS Trophy, I am interested in ${product.name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 rounded-lg sm:rounded-xl bg-[#FFD700] py-2 text-[10px] sm:text-sm font-bold text-[#081A3B] hover:scale-105 transition"
-                >
-                  <MessageCircle size={14} />
-                  Enquire
-                </a>
+          </div>
+        </div>
 
-              </div>
-            </div>
+        {/* Bottom Hover Bar */}
+        <div className="absolute bottom-0 left-0 h-1 w-0 bg-[#081A3B] group-hover:w-full transition-all duration-500"></div>
 
-            {/* Bottom Hover Bar */}
-            <div className="absolute bottom-0 left-0 h-1 w-0 bg-[#FFD700] group-hover:w-full transition-all duration-500"></div>
+      </motion.div>
+    );
+  })}
+</div>
 
-          </motion.div>
-        );
-      })}
-    </div>
+
+
 
   </div>
 </section>
@@ -639,7 +649,7 @@ const Products = () => {
       {/* ===================================================================
           FEATURES (Customization capabilities)
       =================================================================== */}
-     <section className="py-5 sm:py-10 bg-gradient-to-b from-[#F8F8F6] via-white to-[#F8F8F6] overflow-hidden">
+     <section className="py-5 sm:py-5 bg-gradient-to-b from-[#F8F8F6] via-white to-[#F8F8F6] overflow-hidden">
   <div className="max-w-7xl mx-auto px-5">
 
     {/* Heading */}
@@ -679,46 +689,43 @@ const Products = () => {
     </div>
 
     {/* Cards */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
-      {featureCards.map((item) => {
-        const Icon = item.icon;
+   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
 
-        return (
-          <div
-            key={item.title}
-            className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/30 bg-white p-8 text-center shadow-lg transition-all duration-500 hover:-translate-y-3 hover:border-[#FFD700] hover:bg-[#081A3B] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)]"
-          >
-            {/* Glow */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#FFD700]/15 via-transparent to-[#081A3B]/20"></div>
+  {featureCards.map((item) => {
+    const Icon = item.icon;
 
-            {/* Icon */}
-            <div className="relative z-10 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFD700] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-              <Icon
-                size={36}
-                className="text-[#081A3B]"
-              />
-            </div>
+    return (
+      <div
+        key={item.title}
+        className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/30 bg-white p-8 text-center shadow-lg transition-all duration-500 hover:-translate-y-3 hover:border-[#FFD700] hover:bg-[#081A3B] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)]"
+      >
+        {/* Glow */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#FFD700]/15 via-transparent to-[#081A3B]/20"></div>
 
-            {/* Title */}
-            <h3 className="relative z-10 text-xl font-bold text-[#081A3B] group-hover:text-[#FFD700] transition-colors duration-300">
-              {item.title}
-            </h3>
+        {/* Icon */}
+        <div className="relative z-10 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFD700] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+          <Icon size={40} className="text-[#081A3B]" />
+        </div>
 
-            {/* Divider */}
-            <div className="relative z-10 mx-auto mt-4 h-[2px] w-12 bg-[#FFD700] group-hover:w-20 transition-all duration-500"></div>
+        {/* Title (INCREASED FONT) */}
+        <h3 className="relative z-10 text-2xl font-bold text-[#081A3B] group-hover:text-[#FFD700] transition-colors duration-300">
+          {item.title}
+        </h3>
 
-            {/* Description */}
-            <p className="relative z-10 mt-4 text-sm text-gray-600 leading-6 transition-colors duration-300 group-hover:text-white">
-              Premium quality customization with precise finishing and elegant
-              craftsmanship.
-            </p>
+        {/* Divider */}
+        <div className="relative z-10 mx-auto mt-4 h-[2px] w-12 bg-[#FFD700] group-hover:w-20 transition-all duration-500"></div>
 
-            {/* Bottom Accent */}
-            <div className="absolute bottom-0 left-0 w-full h-1 bg-[#FFD700] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-          </div>
-        );
-      })}
-    </div>
+        {/* Description (INCREASED FONT) */}
+        <p className="relative z-10 mt-4 text-base text-gray-600 leading-7 transition-colors duration-300 group-hover:text-white">
+          Premium quality customization with precise finishing and elegant craftsmanship.
+        </p>
+
+        {/* Bottom Accent */}
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-[#FFD700] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+      </div>
+    );
+  })}
+</div>
 
   </div>
 </section>

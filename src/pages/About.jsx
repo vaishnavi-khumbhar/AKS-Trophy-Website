@@ -156,36 +156,58 @@ const About = () => {
       </section>
 
       {/* ══════════ JOURNEY TIMELINE ══════════ */}
-      <section className="py-16 bg-[#F8F8F6]">
-        <div className="max-w-5xl mx-auto px-5">
-          <SectionHeading white="Our" gold="Journey" />
+     <section className="py-20 bg-[#F8F8F6]">
+  <div className="max-w-6xl mx-auto px-5">
+    <SectionHeading white="Our" gold="Journey" />
 
-          <div className="relative border-l-2 border-[#F5C200]/40 pl-8 space-y-10">
-            {journey.map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="relative"
-              >
-                {/* dot */}
-                <div className="absolute -left-[42px] top-3 w-5 h-5 bg-[#F5C200] rounded-full shadow-lg shadow-yellow-300/40 ring-4 ring-[#F5C200]/20" />
+    {/* Timeline */}
+    <div className="relative mt-12 border-l-[3px] border-[#F5C200]/40 pl-10 space-y-12">
+      {journey.map((item, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: i * 0.1 }}
+          className="relative"
+        >
+          {/* Timeline Dot */}
+          <div className="absolute -left-[52px] top-4 w-5 h-5 bg-[#F5C200] rounded-full shadow-lg shadow-yellow-300/40 ring-4 ring-[#F5C200]/20" />
 
-                <div className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 hover:border-[#F5C200]/30 hover:shadow-xl transition">
-                  <span className="inline-block bg-[#F5C200]/10 text-[#F5C200] text-xs font-bold px-3 py-1 rounded-full tracking-widest">
-                    {item.year}
-                  </span>
-                  <h3 className="text-xl font-bold text-[#081A3B] mt-3">{item.title}</h3>
-                  <p className="mt-2 text-gray-600 leading-7 text-sm sm:text-base font-medium">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
+          {/* Card */}
+          <div className="bg-white p-7 rounded-3xl shadow-md border border-gray-100 hover:border-[#F5C200]/30 hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
+            
+            {/* Top Accent */}
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#F5C200] via-[#FFD84D] to-[#F5C200]" />
+
+            {/* Hover Glow */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[#F5C200]/0 to-[#F5C200]/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none" />
+
+            {/* Year */}
+            <span className="inline-block bg-[#F5C200]/10 text-[#F5C200] text-xs sm:text-sm font-bold px-4 py-2 rounded-full tracking-widest">
+              {item.year}
+            </span>
+
+            {/* Title */}
+            <h3 className="text-2xl sm:text-[28px] font-bold text-[#081A3B] mt-4 leading-tight">
+              {item.title}
+            </h3>
+
+            {/* Description */}
+            <p className="mt-3 text-gray-600 leading-8 text-base sm:text-[17px] font-medium">
+              {item.desc}
+            </p>
+
+            {/* Background Number */}
+            <span className="absolute -bottom-3 right-4 text-7xl font-black text-[#081A3B]/[0.04] select-none pointer-events-none">
+              {i + 1}
+            </span>
           </div>
-        </div>
-      </section>
-
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
       {/* ══════════ FEATURES ══════════ */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-5 text-center">

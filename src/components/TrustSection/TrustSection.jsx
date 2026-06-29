@@ -46,9 +46,18 @@ const TrustSection = () => {
             <span className="text-yellow-500">Businesses & Sports Events</span>
           </h2>
 
-          <p className="mt-5 max-w-3xl mx-auto text-gray-600 text-base sm:text-lg">
-            We deliver premium-quality trophies, medals, and customized awards with precision and excellence.
-          </p>
+          <p
+  className="mt-5 max-w-3xl mx-auto px-2 text-gray-600 text-base sm:text-lg md:text-xl leading-8 font-medium"
+  style={{ fontFamily: "'Poppins', sans-serif" }}
+>
+  We deliver{" "}
+  <span className="font-semibold text-[#0F1E3D]">
+    premium-quality trophies, medals, and customized awards
+  </span>{" "}
+  crafted with exceptional precision, elegant finishes, and superior
+  craftsmanship to celebrate every achievement with pride.
+</p>
+
         </div>
 
         {/* CARDS */}

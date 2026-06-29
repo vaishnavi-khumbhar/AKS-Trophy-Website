@@ -150,38 +150,48 @@ const FeaturedProducts = () => {
         </Swiper>
 
         {/* BOTTOM STATS */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
-          {[
-            { num: "800+", label: "Designs" },
-            { num: "₹50", label: "Starting Price" },
-            { num: "₹50K", label: "Premium Awards" },
-            { num: "All MH", label: "Delivery" },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className="group relative bg-white/8 backdrop-blur-sm rounded-xl p-4 text-center overflow-hidden transition-all duration-300 hover:-translate-y-1"
-              style={{ border: "2px solid rgba(245,196,0,0.25)" }}
-              onMouseEnter={e => e.currentTarget.style.border = "2px solid #F5C400"}
-              onMouseLeave={e => e.currentTarget.style.border = "2px solid rgba(245,196,0,0.25)"}
-            >
-              {/* Corner accents */}
-              <span className="absolute top-[-2px] left-[-2px] w-3 h-3 border-t-[2px] border-l-[2px] border-yellow-400 rounded-tl-xl" />
-              <span className="absolute top-[-2px] right-[-2px] w-3 h-3 border-t-[2px] border-r-[2px] border-yellow-400 rounded-tr-xl" />
-              <span className="absolute bottom-[-2px] left-[-2px] w-3 h-3 border-b-[2px] border-l-[2px] border-yellow-400 rounded-bl-xl" />
-              <span className="absolute bottom-[-2px] right-[-2px] w-3 h-3 border-b-[2px] border-r-[2px] border-yellow-400 rounded-br-xl" />
+       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-8 sm:mt-10">
+  {[
+    { num: "800+", label: "Designs" },
+    { num: "₹50", label: "Starting Price" },
+    { num: "₹50K", label: "Premium Awards" },
+    { num: "All MH", label: "All Maharashtra" },
+  ].map((stat, i) => (
+    <div
+      key={i}
+      className="group relative bg-white/5 backdrop-blur-sm rounded-xl p-3 sm:p-4 md:p-5 text-center overflow-hidden transition-all duration-300 hover:-translate-y-1"
+      style={{ border: "2px solid rgba(245,196,0,0.25)" }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.border = "2px solid #F5C400")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.border = "2px solid rgba(245,196,0,0.25)")
+      }
+    >
+      {/* Corner accents */}
+      <span className="absolute top-[-2px] left-[-2px] w-3 h-3 border-t-[2px] border-l-[2px] border-yellow-400 rounded-tl-xl" />
+      <span className="absolute top-[-2px] right-[-2px] w-3 h-3 border-t-[2px] border-r-[2px] border-yellow-400 rounded-tr-xl" />
+      <span className="absolute bottom-[-2px] left-[-2px] w-3 h-3 border-b-[2px] border-l-[2px] border-yellow-400 rounded-bl-xl" />
+      <span className="absolute bottom-[-2px] right-[-2px] w-3 h-3 border-b-[2px] border-r-[2px] border-yellow-400 rounded-br-xl" />
 
-              {/* Top bar */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#F5C400] to-[#FFD84D]" />
+      {/* Top bar */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#F5C400] to-[#FFD84D]" />
 
-              <h3 className="text-[#F5C400] text-2xl font-bold">{stat.num}</h3>
-              <p className="text-white text-sm mt-1">{stat.label}</p>
+      {/* NUMBER */}
+      <h3 className="text-[#F5C400] text-2xl sm:text-3xl md:text-4xl font-bold">
+        {stat.num}
+      </h3>
 
-              {/* Bottom bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#F5C400] to-[#FFD84D]" />
-            </div>
-          ))}
-        </div>
+      {/* LABEL */}
+      <p className="text-white text-xs sm:text-sm md:text-base mt-1 sm:mt-2">
+        {stat.label}
+      </p>
 
+      {/* Bottom bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[#F5C400] to-[#FFD84D]" />
+    </div>
+  ))}
+</div>
       </div>
     </section>
   );

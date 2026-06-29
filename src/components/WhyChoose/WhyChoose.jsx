@@ -129,12 +129,12 @@ const WhyChoose = () => {
                       </div>
 
                       <div className="min-w-0">
-                        <h3 className="text-base font-bold text-[#0B2C5D]">
-                          {item.title}
-                        </h3>
-                        <p className="mt-1 text-gray-500 text-sm leading-6">
-                          {item.description}
-                        </p>
+                        <h3 className="text-[20px] font-bold text-[#0B2C5D]">
+  {item.title}
+</h3>
+                       <p className="mt-1 text-gray-500 text-[16px] leading-6">
+  {item.description}
+</p>
                       </div>
                     </div>
 
@@ -173,29 +173,39 @@ const WhyChoose = () => {
               />
 
               {/* COUNTERS */}
-              <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-6 w-full max-w-sm mx-auto">
-                {[
-                  { num: "100+", label: "Designs" },
-                  { num: "5000+", label: "Orders" },
-                  { num: "100%", label: "Quality" },
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ y: -4 }}
-                    className="relative bg-white rounded-xl py-3 text-center shadow-lg overflow-hidden transition-all duration-300"
-                    style={{ border: "2px solid rgba(245,194,0,0.3)" }}
-                  >
-                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] to-[#FFD84D]" />
-                    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] to-[#FFD84D]" />
-                    <h3 className="text-lg sm:text-2xl font-bold text-[#F5C200]">
-                      {item.num}
-                    </h3>
-                    <p className="text-[10px] sm:text-sm text-[#0B2C5D] mt-1 font-medium">
-                      {item.label}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
+             <div className="grid grid-cols-3 gap-3 sm:gap-4 mt-6 w-full max-w-sm mx-auto">
+  {[
+    { num: "100+", label: "Designs" },
+    { num: "5000+", label: "Orders" },
+    { num: "100%", label: "Quality" },
+  ].map((item, i) => (
+    <motion.div
+      key={i}
+      whileHover={{ y: -4 }}
+      className="relative bg-white rounded-xl py-4 sm:py-5 text-center shadow-lg overflow-hidden transition-all duration-300"
+      style={{ border: "2px solid rgba(245,194,0,0.3)" }}
+    >
+      {/* top & bottom bars */}
+      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] to-[#FFD84D]" />
+      <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#F5C200] to-[#FFD84D]" />
+
+      {/* NUMBER */}
+      <h3 className="text-xl sm:text-3xl font-bold text-[#F5C200]">
+        {item.num}
+      </h3>
+
+      {/* LABEL */}
+      <p
+        className="text-[15px] sm:text-[16px] md:text-[19px] text-[#0B2C5D] mt-1 font-medium"
+        style={{ fontFamily: "Cormorant Garamond, serif" }}
+      >
+        {item.label}
+      </p>
+    </motion.div>
+  ))}
+</div>
+
+
             </motion.div>
 
             {/* Floating Elements */}

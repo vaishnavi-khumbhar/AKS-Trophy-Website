@@ -66,53 +66,58 @@ const FAQ = () => {
           </div>
 
           {/* Accordion */}
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                layout
-                whileHover={{ y: -2 }}
-                className={`bg-white rounded-3xl shadow-md overflow-hidden border transition-all duration-300 ${
-                  activeIndex === index
-                    ? "border-[#F5C200] shadow-xl"
-                    : "border-gray-100 hover:border-[#F5C200]/40"
-                }`}
-              >
-                <button
-                  onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-center justify-between p-6 sm:p-7 text-left"
-                >
-                  <span className="text-base sm:text-lg font-semibold text-[#081A3B] pr-4 leading-snug">
-                    {faq.question}
-                  </span>
+         <div className="space-y-5">
+  {faqs.map((faq, index) => (
+    <motion.div
+      key={index}
+      layout
+      whileHover={{ y: -2 }}
+      className={`bg-white rounded-3xl shadow-md overflow-hidden border transition-all duration-300 ${
+        activeIndex === index
+          ? "border-[#F5C200] shadow-xl"
+          : "border-gray-100 hover:border-[#F5C200]/40"
+      }`}
+    >
+      {/* Question */}
+      <button
+        onClick={() => toggleFAQ(index)}
+        className="w-full flex items-center justify-between p-7 sm:p-8 text-left"
+      >
+        <span className="text-lg sm:text-xl lg:text-[22px] font-semibold text-[#081A3B] pr-4 leading-8">
+          {faq.question}
+        </span>
 
-                  <motion.div
-                    animate={{ rotate: activeIndex === index ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex items-center justify-center w-10 h-10 rounded-full bg-[#F5C200]/10 shrink-0"
-                  >
-                    <ChevronDown size={20} className="text-[#F5C200]" />
-                  </motion.div>
-                </button>
+        <motion.div
+          animate={{ rotate: activeIndex === index ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+          className="flex items-center justify-center w-11 h-11 rounded-full bg-[#F5C200]/10 shrink-0"
+        >
+          <ChevronDown size={22} className="text-[#F5C200]" />
+        </motion.div>
+      </button>
 
-                <AnimatePresence>
-                  {activeIndex === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 sm:px-7 pb-6 sm:pb-7 text-gray-600 leading-8 text-sm sm:text-base border-t border-[#F5C200]/20 pt-4">
-                        {faq.answer}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
+      {/* Answer */}
+      <AnimatePresence>
+        {activeIndex === index && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="overflow-hidden"
+          >
+            <div className="px-7 sm:px-8 pb-7 sm:pb-8 pt-5 border-t border-[#F5C200]/20">
+              <p className="text-gray-600 text-base sm:text-lg lg:text-[18px] leading-9 font-medium">
+                {faq.answer}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  ))}
+</div>
+
 
           {/* CTA box */}
           <div className="mt-16 bg-[#081A3B] rounded-[32px] p-8 sm:p-12 text-center relative overflow-hidden">
