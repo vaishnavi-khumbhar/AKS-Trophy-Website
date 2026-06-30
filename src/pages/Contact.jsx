@@ -13,28 +13,75 @@ const Contact = () => {
     <>
       {/* HERO */}
 
-      <section className="relative pt-30 md:pt-35 pb-20 md:pb-25 bg-[#081A3B] overflow-hidden">
+      {/* ================= HERO ================= */}
 
-  <div className="absolute top-0 left-0 w-72 md:w-96 h-72 md:h-96 bg-[#FFD700]/10 blur-[150px] rounded-full"></div>
+<section className="relative pt-32 md:pt-36 pb-24 md:pb-28 bg-[#081A3B] overflow-hidden">
 
-  <div className="max-w-7xl mx-auto px-4 sm:px-5 text-center">
+  {/* Glow */}
+  <div className="absolute top-0 left-0 w-72 md:w-[420px] h-72 md:h-[420px] bg-[#FFD700]/12 blur-[150px] rounded-full" />
+  <div className="absolute bottom-0 right-0 w-72 h-72 bg-[#FFD700]/8 blur-[120px] rounded-full" />
 
-    <span className="inline-block px-3 py-2 rounded-full bg-[#FFD700]/10 text-[#FFD700] text-sm">
-      Contact AKS Trophy
+  {/* Pattern */}
+  <div
+    className="absolute inset-0 opacity-[0.04]"
+    style={{
+      backgroundImage: "radial-gradient(#FFD700 1px, transparent 1px)",
+      backgroundSize: "28px 28px",
+    }}
+  />
+
+  {/* Circle Borders */}
+  <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full border border-dashed border-[#FFD700]/10"></div>
+  <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full border border-dashed border-[#FFD700]/10"></div>
+
+  <div className="relative z-10 max-w-7xl mx-auto px-5 text-center">
+
+    {/* Badge */}
+
+    <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/30 text-[#FFD700] text-sm font-semibold">
+
+      <span className="w-1.5 h-1.5 rounded-full bg-[#FFD700]" />
+
+      Contact AKS Small Trophy House
+
+      <span className="w-1.5 h-1.5 rounded-full bg-[#FFD700]" />
+
     </span>
 
     <motion.h1
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white"
+      transition={{ duration: .6 }}
+      className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight"
     >
       Let's Create Something
       <span className="text-[#FFD700]"> Memorable</span>
     </motion.h1>
 
-    <p className="mt-6 max-w-3xl mx-auto text-gray-300 leading-7 md:leading-8 text-sm sm:text-base">
-      Looking for customized trophies, awards,
-      medals or bulk orders? Get in touch with us.
+    {/* Divider */}
+
+    <div className="flex justify-center items-center gap-3 mt-6">
+
+      <div className="h-[2px] w-14 bg-gradient-to-r from-transparent to-[#FFD700]" />
+
+      <div className="w-2 h-2 rounded-full bg-[#FFD700]" />
+
+      <div className="w-2 h-2 rounded-full bg-[#FFD700]/50" />
+
+      <div className="w-2 h-2 rounded-full bg-[#FFD700]" />
+
+      <div className="h-[2px] w-14 bg-gradient-to-l from-transparent to-[#FFD700]" />
+
+    </div>
+
+    <p className="mt-6 max-w-3xl mx-auto text-gray-300 leading-8 text-sm sm:text-lg">
+
+      Looking for customized trophies, awards, medals or bulk orders?
+
+      Connect with AKS Trophy House and let us craft something memorable
+
+      for your school, corporate event or sports tournament.
+
     </p>
 
   </div>
@@ -43,203 +90,381 @@ const Contact = () => {
 
       {/* CONTACT CARDS */}
 
-        <section className="py-10 bg-[#F8F8F6]">
+        {/* ================= CONTACT CARDS ================= */}
 
-        <div className="max-w-7xl mx-auto px-5">
+<section className="py-12 bg-[#F8F8F6] relative overflow-hidden">
 
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+  <div className="absolute top-0 right-0 w-72 h-72 bg-[#FFD700]/10 blur-[120px] rounded-full"></div>
 
-            {/* Phone */}
+  <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#081A3B]/5 blur-[120px] rounded-full"></div>
 
-            <motion.a
-              whileHover={{ y: -8 }}
-              href="tel:+919307623168"
-              className="bg-white rounded-[30px] p-8 shadow-lg text-center"
-            >
-              <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <Phone className="text-[#FFD700]" />
-              </div>
+  <div className="max-w-7xl mx-auto px-5">
 
-              <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
-                Call Us
-              </h3>
+   <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
 
-              <p className="mt-3 text-gray-600">
-                +91 9307623168
-              </p>
-            </motion.a>
+  {/* Call Us */}
+  <motion.a
+    whileHover={{ y: -8 }}
+    transition={{ duration: 0.3 }}
+    href="tel:+919307623168"
+    className="group relative overflow-hidden bg-white rounded-[30px] p-8 text-center border-2 border-[#FFD700]/20 hover:border-[#FFD700] shadow-lg hover:shadow-2xl transition-all duration-300"
+  >
+    {/* Decorative */}
+    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
 
-            {/* WhatsApp */}
+    <span className="absolute top-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-t-[3px] border-[#FFD700] rounded-tl-[30px]" />
+    <span className="absolute top-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-t-[3px] border-[#FFD700] rounded-tr-[30px]" />
+    <span className="absolute bottom-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-b-[3px] border-[#FFD700] rounded-bl-[30px]" />
+    <span className="absolute bottom-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-b-[3px] border-[#FFD700] rounded-br-[30px]" />
 
-            <motion.a
-              whileHover={{ y: -8 }}
-              href="https://wa.me/9307623168"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white rounded-[30px] p-8 shadow-lg text-center"
-            >
-              <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <MessageCircle className="text-[#FFD700]" />
-              </div>
+    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#081A3B]/5 transition-all duration-300" />
 
-              <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
-                WhatsApp
-              </h3>
+    <div className="relative z-10">
+      <div className="w-20 h-20 bg-[#081A3B] rounded-3xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition duration-300">
+        <Phone size={34} className="text-[#FFD700]" />
+      </div>
 
-              <p className="mt-3 text-gray-600">
-                Quick Response
-              </p>
-            </motion.a>
+      <h3 className="mt-6 text-2xl font-bold text-[#081A3B]">
+        Call Us
+      </h3>
 
-            {/* Email */}
+      <div className="flex justify-center gap-2 mt-3">
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+      </div>
 
-            <motion.a
-              whileHover={{ y: -8 }}
-              href="mailto:akstrophyy@gmail.com"
-              className="bg-white rounded-[30px] p-8 shadow-lg text-center"
-            >
-              <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <Mail className="text-[#FFD700]" />
-              </div>
+      <p className="mt-5 text-gray-600 font-medium text-lg">
+        +91 9307623168
+      </p>
+    </div>
+  </motion.a>
 
-              <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
-                Email Us
-              </h3>
+  {/* WhatsApp */}
+  <motion.a
+    whileHover={{ y: -8 }}
+    transition={{ duration: 0.3 }}
+    href="https://wa.me/919307623168"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group relative overflow-hidden bg-white rounded-[30px] p-8 text-center border-2 border-[#FFD700]/20 hover:border-[#FFD700] shadow-lg hover:shadow-2xl transition-all duration-300"
+  >
+    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
 
-              <p className="mt-3 text-gray-600 break-all">
-                akstrophyy@gmail.com
-              </p>
-            </motion.a>
+    <span className="absolute top-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-t-[3px] border-[#FFD700] rounded-tl-[30px]" />
+    <span className="absolute top-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-t-[3px] border-[#FFD700] rounded-tr-[30px]" />
+    <span className="absolute bottom-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-b-[3px] border-[#FFD700] rounded-bl-[30px]" />
+    <span className="absolute bottom-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-b-[3px] border-[#FFD700] rounded-br-[30px]" />
 
-            {/* Timing */}
+    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#081A3B]/5 transition-all duration-300" />
 
-            <motion.div
-              whileHover={{ y: -8 }}
-              className="bg-white rounded-[30px] p-8 shadow-lg text-center"
-            >
-              <div className="w-16 h-16 bg-[#081A3B] rounded-2xl flex items-center justify-center mx-auto">
-                <Clock className="text-[#FFD700]" />
-              </div>
+    <div className="relative z-10">
+      <div className="w-20 h-20 bg-[#081A3B] rounded-3xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition duration-300">
+        <MessageCircle size={34} className="text-[#FFD700]" />
+      </div>
 
-              <h3 className="mt-5 text-xl font-bold text-[#081A3B]">
-                Working Hours
-              </h3>
+      <h3 className="mt-6 text-2xl font-bold text-[#081A3B]">
+        WhatsApp
+      </h3>
 
-              <p className="mt-3 text-gray-600">
-                Mon - Sun
-              </p>
+      <div className="flex justify-center gap-2 mt-3">
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+      </div>
 
-              <p className="text-gray-600">
-                9:00 AM - 8:00 PM
-              </p>
-            </motion.div>
+      <p className="mt-5 text-gray-600 font-medium text-lg">
+        Quick Response
+      </p>
+    </div>
+  </motion.a>
 
-          </div>
+  {/* Email */}
+  <motion.a
+    whileHover={{ y: -8 }}
+    transition={{ duration: 0.3 }}
+    href="mailto:akstrophyy@gmail.com"
+    className="group relative overflow-hidden bg-white rounded-[30px] p-8 text-center border-2 border-[#FFD700]/20 hover:border-[#FFD700] shadow-lg hover:shadow-2xl transition-all duration-300"
+  >
+    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+    <span className="absolute top-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-t-[3px] border-[#FFD700] rounded-tl-[30px]" />
+    <span className="absolute top-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-t-[3px] border-[#FFD700] rounded-tr-[30px]" />
+    <span className="absolute bottom-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-b-[3px] border-[#FFD700] rounded-bl-[30px]" />
+    <span className="absolute bottom-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-b-[3px] border-[#FFD700] rounded-br-[30px]" />
+
+    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#081A3B]/5 transition-all duration-300" />
+
+    <div className="relative z-10">
+      <div className="w-20 h-20 bg-[#081A3B] rounded-3xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition duration-300">
+        <Mail size={34} className="text-[#FFD700]" />
+      </div>
+
+      <h3 className="mt-6 text-2xl font-bold text-[#081A3B]">
+        Email Us
+      </h3>
+
+      <div className="flex justify-center gap-2 mt-3">
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+      </div>
+
+      <p className="mt-5 text-gray-600 font-medium break-all">
+        akstrophyy@gmail.com
+      </p>
+    </div>
+  </motion.a>
+
+  {/* Working Hours */}
+  <motion.div
+    whileHover={{ y: -8 }}
+    transition={{ duration: 0.3 }}
+    className="group relative overflow-hidden bg-white rounded-[30px] p-8 text-center border-2 border-[#FFD700]/20 hover:border-[#FFD700] shadow-lg hover:shadow-2xl transition-all duration-300"
+  >
+    <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+    <span className="absolute top-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-t-[3px] border-[#FFD700] rounded-tl-[30px]" />
+    <span className="absolute top-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-t-[3px] border-[#FFD700] rounded-tr-[30px]" />
+    <span className="absolute bottom-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-b-[3px] border-[#FFD700] rounded-bl-[30px]" />
+    <span className="absolute bottom-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-b-[3px] border-[#FFD700] rounded-br-[30px]" />
+
+    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 bg-gradient-to-br from-[#FFD700]/10 via-transparent to-[#081A3B]/5 transition-all duration-300" />
+
+    <div className="relative z-10">
+      <div className="w-20 h-20 bg-[#081A3B] rounded-3xl flex items-center justify-center mx-auto shadow-xl group-hover:scale-110 transition duration-300">
+        <Clock size={34} className="text-[#FFD700]" />
+      </div>
+
+      <h3 className="mt-6 text-2xl font-bold text-[#081A3B]">
+        Working Hours
+      </h3>
+
+      <div className="flex justify-center gap-2 mt-3">
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+        <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+      </div>
+
+      <p className="mt-5 text-gray-600 font-medium">
+        Mon - Sun
+      </p>
+
+      <p className="text-gray-600">
+        9:00 AM - 8:00 PM
+      </p>
+    </div>
+  </motion.div>
+
+</div>
 
         </div>
 
       </section>
+
+
+
+
 
       {/* CONTACT FORM + MAP */}
 
-     <section className="py-10 md:py-20 bg-white">
+    <section className="py-14 md:py-20 bg-white relative overflow-hidden">
 
-  <div className="max-w-7xl mx-auto px-4 sm:px-5">
+  {/* Background Effects */}
 
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+  <div className="absolute top-0 right-0 w-80 h-80 bg-[#FFD700]/10 blur-[140px] rounded-full"></div>
 
-            {/* FORM */}
+  <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#081A3B]/5 blur-[140px] rounded-full"></div>
 
-           <div className="bg-[#F8F8F6] p-6 md:p-8 rounded-[32px] shadow-lg">
-
-  <h2 className="text-2xl md:text-3xl font-bold text-[#081A3B]">
-    Send Inquiry
-  </h2>
-
-  <form className="mt-8 space-y-5">
-
-    <input
-      type="text"
-      placeholder="Your Name"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
-    />
-
-    <input
-      type="tel"
-      placeholder="Phone Number"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
-    />
-
-    <input
-      type="email"
-      placeholder="Email Address"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
-    />
-
-    <textarea
-      rows="5"
-      placeholder="Your Requirement"
-      className="w-full p-4 rounded-xl border outline-none focus:border-[#FFD700]"
-    />
-
-    <button
-      type="submit"
-      className="w-full bg-[#FFD700] text-[#081A3B] py-4 rounded-xl font-semibold hover:scale-[1.02] transition"
-    >
-      Send Inquiry
-    </button>
-
-  </form>
-
-</div>
-
-            {/* MAP + ADDRESS */}
-
-            <div>
-
-              <div className="bg-[#081A3B] p-8 rounded-[32px] text-white">
-
-                <h2 className="text-3xl font-bold">
-                  Visit Our Store
-                </h2>
-
-                <div className="mt-8 flex gap-4">
-
-                  <MapPin
-                    className="text-[#FFD700] mt-1"
-                    size={22}
-                  />
-
-                  <p className="leading-8">
-                    AKS TROPHY HOUSE,
-                    MG Rd, beside BANK OF MAHARASHTRA,
-                    Latur, Maharashtra 413512
-                  </p>
-
-                </div>
-
-              </div>
-
-              {/* GOOGLE MAP */}
-
-             <div className="mt-8 overflow-hidden rounded-[32px] shadow-lg">
-
-  <iframe
-    title="AKS Trophy Location"
-    src="https://maps.google.com/maps?q=Latur&t=&z=13&ie=UTF8&iwloc=&output=embed"
-    className="w-full h-[250px] sm:h-[320px] md:h-[400px]"
-    loading="lazy"
+  <div
+    className="absolute inset-0 opacity-[0.03]"
+    style={{
+      backgroundImage: "radial-gradient(#081A3B 1px, transparent 1px)",
+      backgroundSize: "28px 28px",
+    }}
   />
 
-</div>
+  <div className="relative max-w-7xl mx-auto px-4 sm:px-5">
+
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      {/* ================= FORM ================= */}
+
+      <motion.div
+        whileHover={{ y: -4 }}
+        className="relative overflow-hidden rounded-[34px] bg-[#F8F8F6] p-6 md:p-9 border-2 border-[#FFD700]/20 shadow-xl transition-all duration-300 hover:border-[#FFD700]"
+      >
+
+        {/* Top Bottom Border */}
+
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+        {/* Corners */}
+
+        <span className="absolute top-[-2px] left-[-2px] w-6 h-6 border-t-[3px] border-l-[3px] border-[#FFD700] rounded-tl-[34px]" />
+
+        <span className="absolute top-[-2px] right-[-2px] w-6 h-6 border-t-[3px] border-r-[3px] border-[#FFD700] rounded-tr-[34px]" />
+
+        <span className="absolute bottom-[-2px] left-[-2px] w-6 h-6 border-b-[3px] border-l-[3px] border-[#FFD700] rounded-bl-[34px]" />
+
+        <span className="absolute bottom-[-2px] right-[-2px] w-6 h-6 border-b-[3px] border-r-[3px] border-[#FFD700] rounded-br-[34px]" />
+
+        {/* Badge */}
+
+        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#081A3B]/10 border border-[#081A3B]/20 text-[#081A3B] text-sm font-semibold">
+
+          <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+
+          Send Inquiry
+
+          <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+
+        </span>
+
+        <h2 className="mt-5 text-3xl font-bold text-[#081A3B]">
+
+          Let's Talk
+
+        </h2>
+
+        <p className="mt-3 text-gray-600 leading-7">
+
+          Fill the form and our team will contact you shortly.
+
+        </p>
+
+        <form className="mt-8 space-y-5">
+
+          <input
+            type="text"
+            placeholder="Your Name"
+            className="w-full h-14 rounded-xl border border-gray-200 bg-white px-5 outline-none transition-all focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20"
+          />
+
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            className="w-full h-14 rounded-xl border border-gray-200 bg-white px-5 outline-none transition-all focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20"
+          />
+
+          <input
+            type="email"
+            placeholder="Email Address"
+            className="w-full h-14 rounded-xl border border-gray-200 bg-white px-5 outline-none transition-all focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20"
+          />
+
+          <textarea
+            rows={5}
+            placeholder="Your Requirement"
+            className="w-full rounded-xl border border-gray-200 bg-white p-5 resize-none outline-none transition-all focus:border-[#FFD700] focus:ring-4 focus:ring-[#FFD700]/20"
+          />
+
+          <button
+            type="submit"
+            className="group w-full h-14 rounded-xl bg-[#081A3B] text-white font-semibold transition-all duration-300 hover:bg-[#FFD700] hover:text-[#081A3B] shadow-xl hover:shadow-yellow-300/40"
+          >
+            Send Inquiry →
+          </button>
+
+        </form>
+
+      </motion.div>
+
+      {/* ================= RIGHT ================= */}
+
+      <div className="space-y-8">
+
+        {/* Store Card */}
+
+        <motion.div
+          whileHover={{ y: -4 }}
+          className="relative overflow-hidden rounded-[34px] bg-[#081A3B] p-8 text-white border-2 border-[#FFD700]/20 shadow-xl"
+        >
+
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+          <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+          <span className="absolute top-[-2px] left-[-2px] w-6 h-6 border-t-[3px] border-l-[3px] border-[#FFD700] rounded-tl-[34px]" />
+
+          <span className="absolute top-[-2px] right-[-2px] w-6 h-6 border-t-[3px] border-r-[3px] border-[#FFD700] rounded-tr-[34px]" />
+
+          <span className="absolute bottom-[-2px] left-[-2px] w-6 h-6 border-b-[3px] border-l-[3px] border-[#FFD700] rounded-bl-[34px]" />
+
+          <span className="absolute bottom-[-2px] right-[-2px] w-6 h-6 border-b-[3px] border-r-[3px] border-[#FFD700] rounded-br-[34px]" />
+
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 text-[#FFD700] text-sm font-semibold">
+
+            <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+
+            Visit Our Store
+
+            <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+
+          </span>
+
+          <h2 className="mt-6 text-3xl font-bold">
+
+            AKS Trophy House
+
+          </h2>
+
+          <div className="mt-8 flex gap-4">
+
+            <div className="w-14 h-14 rounded-2xl bg-[#FFD700] flex items-center justify-center shrink-0">
+
+              <MapPin className="text-[#081A3B]" size={24} />
 
             </div>
 
+            <p className="leading-8 text-gray-200">
+
+              AKS TROPHY HOUSE <br />
+
+              MG Road, beside Bank of Maharashtra <br />
+
+              Latur, Maharashtra 413512
+
+            </p>
+
           </div>
 
-        </div>
+        </motion.div>
 
-      </section>
+        {/* Google Map */}
+
+        <motion.div
+          whileHover={{ scale: 1.01 }}
+          className="relative overflow-hidden rounded-[34px] border-2 border-[#FFD700]/20 shadow-xl"
+        >
+
+          <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700] z-10" />
+
+          <iframe
+            title="AKS Trophy Location"
+            src="https://maps.google.com/maps?q=Latur&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            className="w-full h-[260px] sm:h-[320px] md:h-[400px]"
+            loading="lazy"
+          />
+
+        </motion.div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+      
 
       {/* CTA */}
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowRight, MessageCircle, Phone, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { FaIndianRupeeSign } from "react-icons/fa6";
@@ -25,16 +25,13 @@ import {
   PackageCheck,
 } from "lucide-react";
 
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import products from "../data/products";
 
 // ---------------------------------------------------------------------------
 // CATEGORY IMAGES
 // ---------------------------------------------------------------------------
-// TODO: Replace these paths once the real category photos are supplied.
-// Expected file names below — drop matching images into
-// src/assets/images/categories/ and these imports will resolve automatically.
 import woodenImg from "../assets/images/categories/wooden.jpg";
 import acrylicImg from "../assets/images/categories/acrylic.jpg";
 import metalImg from "../assets/images/categories/metal1.png";
@@ -47,14 +44,11 @@ import medalsImg from "../assets/images/categories/goldmedal.jpg";
 import cupImg from "../assets/images/categories/cup.avif";
 import mementosImg from "../assets/images/categories/mementos.jpg";
 
-// Hero — reuse the existing big trophy image already in the project
 import heroImg from "../assets/Remove.png";
 
 // ---------------------------------------------------------------------------
 // Static data
 // ---------------------------------------------------------------------------
-
-// All 11 categories the business deals in, each with its own image + icon.
 const categoryCards = [
   { id: 1, title: "Wooden", filterKey: "Wooden", icon: Trophy, image: woodenImg },
   { id: 2, title: "Acrylic", filterKey: "Acrylic", icon: Gem, image: acrylicImg },
@@ -73,7 +67,7 @@ const filterTabs = ["All", ...categoryCards.map((c) => c.filterKey), "Customized
 
 const heroStats = [
   { icon: Trophy, value: "800+", label: "Unique Trophy Designs" },
-   { icon: FaIndianRupeeSign, value: "₹50 – ₹50,000", label: "Price Range" },
+  { icon: FaIndianRupeeSign, value: "₹50 – ₹50,000", label: "Price Range" },
   { icon: Truck, value: "All Maharashtra", label: "Delivery Available" },
   { icon: Star, value: "Wholesale & Retail", label: "Both Available" },
 ];
@@ -85,33 +79,52 @@ const featureCards = [
   { title: "Bulk Order Support", icon: PackageCheck },
 ];
 
-// Deterministic placeholder badge/price assignment so re-renders stay stable.
-// Real price/badge data should eventually live in the products data file —
-// this is a temporary in-component placeholder until that field is added.
 const getPlaceholderMeta = (id) => {
   const n = Number(id) || 0;
   const badge = n % 5 === 0 ? "Best Seller" : n % 7 === 0 ? "New" : null;
-  const price = 50 + (n % 20) * 250; // spread across the real ₹50–₹50,000 range
+  const price = 50 + (n % 20) * 250;
   return { badge, price };
 };
 
-const WHATSAPP_NUMBER = "91YOURNUMBER";
-
-//  WhatsApp Enquiry Function
 const handleWhatsAppEnquiry = (productName = "Hello, I want to enquire about your products") => {
   const message = encodeURIComponent(
     `Hi AKS Trophy, I am interested in ${productName}`
   );
 
   window.open(
-    `https://wa.me/${9307623168}?text=${message}`,
+    `https://wa.me/919307623168?text=${message}`,
     "_blank"
   );
 };
 
 const Products = () => {
-  const [filter, setFilter] = useState("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [filter, setFilter] = useState(searchParams.get("category") || "All");
 
+  // Keep filter in sync if the URL's ?category= changes (e.g. via Link clicks
+  // from the homepage, header menu, or browser back/forward navigation)
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    if (cat && cat !== filter) {
+      setFilter(cat);
+    }
+  }, [searchParams]);
+
+  // When user manually clicks a filter tab/card, also reflect it in the URL
+  // so the page is shareable/bookmarkable at the filtered state
+  const updateFilter = (value) => {
+    setFilter(value);
+    if (value === "All") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ category: value });
+    }
+  };
+
+  // Filter logic: this matches EVERY product in products.js whose `category`
+  // equals the selected filter. If products.js has 3 "Wooden" items, all 3
+  // will appear here. This list is NOT limited per category — it shows
+  // however many items exist in products.js for that category.
   const filteredProducts =
     filter === "All"
       ? products
@@ -122,61 +135,66 @@ const Products = () => {
 
   return (
     <>
-      
-
       {/* ===================================================================
-          HERO BANNER — strong brand + business highlights
+          HERO BANNER
       =================================================================== */}
-<section className="relative bg-gradient-to-br from-[#081A3B] via-[#0B2C5D] to-[#081A3B] overflow-hidden pt-28 sm:pt-20 lg:pt-[68px] pb-16 sm:pb-20 lg:pb-24">        {/* ambient glow */}
-        <div className="absolute top-0 right-0 w-[28rem] h-[28rem] bg-[#D4AF37]/20 blur-[160px] rounded-full" />
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#D4AF37]/10 blur-[140px] rounded-full" />
+      <section className="relative bg-gradient-to-br from-[#081A3B] via-[#0B2C5D] to-[#081A3B] overflow-hidden pt-30 sm:pt-28 lg:pt-[130px] pb-12 sm:pb-20 lg:pb-24">
+        <div className="absolute top-0 right-0 w-[16rem] sm:w-[28rem] h-[16rem] sm:h-[28rem] bg-[#D4AF37]/20 blur-[100px] sm:blur-[160px] rounded-full" />
+        <div className="absolute bottom-0 left-0 w-40 sm:w-72 h-40 sm:h-72 bg-[#D4AF37]/10 blur-[100px] sm:blur-[140px] rounded-full" />
 
-        <div className="max-w-7xl mx-auto px-5 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-6 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-6 items-center">
             {/* LEFT CONTENT */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="text-center lg:text-left"
             >
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#D4AF37] text-sm font-semibold">
-                <Sparkles size={14} />
+              <span className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#D4AF37] text-xs sm:text-sm font-semibold">
                 AKS Small Trophy House
               </span>
 
-              <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+              <h1 className="mt-5 sm:mt-2 text-2xl sm:text-4xl lg:text-6xl font-bold text-white leading-tight">
                 800+ Premium{" "}
                 <span className="text-[#D4AF37]">Trophy Designs</span>
               </h1>
 
-            <div
-  className="mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-y-3 text-white/90 text-sm sm:text-base font-semibold animate-hero-fade-in"
-  style={{ animationDelay: "640ms" }}
->
-  {[
-    "Wooden",
-    "Acrylic",
-    "Metal",
-    "Glass",
-    "Fiber",
-    "Shields",
-    "Medals",
-    "Cups",
-    "Mementos",
-  ].map((item, index) => (
-    <div key={index} className="flex items-center">
-      <span className="px-3 hover:text-[#FFD54A] transition-colors duration-300 cursor-default">
-        {item}
-      </span>
+              <div className="flex justify-center items-center gap-3 mt-6">
+                <div className="h-[2px] w-14 bg-gradient-to-r from-transparent to-[#FFD700]" />
+                <div className="w-2 h-2 rounded-full bg-[#FFD700]" />
+                <div className="w-2 h-2 rounded-full bg-[#FFD700]/50" />
+                <div className="w-2 h-2 rounded-full bg-[#FFD700]" />
+                <div className="h-[2px] w-14 bg-gradient-to-l from-transparent to-[#FFD700]" />
+              </div>
 
-      {index !== 8 && (
-        <span className="h-5 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent opacity-70"></span>
-      )}
-    </div>
-  ))}
-</div>
+              <div
+                className="mt-5 sm:mt-6 flex flex-wrap items-center justify-center lg:justify-start gap-y-2 sm:gap-y-3 text-white/90 text-xs sm:text-sm md:text-base font-semibold"
+              >
+                {[
+                  "Wooden",
+                  "Acrylic",
+                  "Metal",
+                  "Glass",
+                  "Fiber",
+                  "Shields",
+                  "Medals",
+                  "Cups",
+                  "Mementos",
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center">
+                    <span className="px-2 sm:px-3 hover:text-[#FFD54A] transition-colors duration-300 cursor-default">
+                      {item}
+                    </span>
 
-              <p className="mt-5 text-gray-300 max-w-xl leading-7 text-sm sm:text-base">
+                    {index !== 8 && (
+                      <span className="h-4 sm:h-5 w-[2px] bg-gradient-to-b from-transparent via-[#D4AF37] to-transparent opacity-70"></span>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-4 sm:mt-5 text-gray-300 max-w-xl mx-auto lg:mx-0 leading-7 text-sm sm:text-base">
                 AKS Small Trophy House is Maharashtra&apos;s trusted name for
                 premium trophies and awards. With 800+ unique designs across
                 every material, fully customized options, and prices starting
@@ -185,20 +203,20 @@ const Products = () => {
                 Maharashtra.
               </p>
 
-              <div className="flex flex-wrap gap-3 mt-7">
-                <a
-                  href="/contact"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-[#081A3B] px-6 py-3 rounded-full font-bold text-sm shadow-lg shadow-[#D4AF37]/30 hover:scale-105 transition"
+              <div className="flex flex-wrap justify-center lg:justify-start gap-3 mt-6 sm:mt-7">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-[#081A3B] px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold text-xs sm:text-sm shadow-lg shadow-[#D4AF37]/30 hover:scale-105 transition"
                 >
                   <Phone size={16} />
                   Get Best Quote
-                </a>
+                </Link>
 
                 <a
-                  href={`https://wa.me/${9307623168}`}
+                  href="https://wa.me/919307623168"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 rounded-full font-semibold text-sm shadow-lg hover:bg-green-700 hover:scale-105 transition"
+                  className="inline-flex items-center gap-2 bg-green-600 text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm shadow-lg hover:bg-green-700 hover:scale-105 transition"
                 >
                   <MessageCircle size={16} />
                   WhatsApp Us
@@ -213,370 +231,416 @@ const Products = () => {
               transition={{ duration: 0.6, delay: 0.15 }}
               className="relative flex items-center justify-center"
             >
-              <div className="absolute w-64 h-64 sm:w-80 sm:h-80 bg-[#D4AF37]/30 rounded-full blur-3xl" />
+              <div className="absolute w-44 h-44 sm:w-64 sm:h-64 md:w-80 md:h-80 bg-[#D4AF37]/30 rounded-full blur-2xl sm:blur-3xl" />
               <img
                 src={heroImg}
                 alt="Premium Trophy"
-                className="relative z-10 h-[300px] sm:h-[340px] lg:h-[400px] object-contain drop-shadow-2xl"
+                className="relative z-10 h-[220px] sm:h-[300px] md:h-[340px] lg:h-[400px] object-contain drop-shadow-2xl"
               />
             </motion.div>
           </div>
 
-          {/* GLASSMORPHISM STATS BAR — core business highlights */}
-          <div className="mt-12 lg:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-  {heroStats.map((stat) => {
-    const Icon = stat.icon;
+          {/* GLASSMORPHISM STATS BAR */}
+          <div className="mt-10 sm:mt-12 lg:mt-16 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-6">
+            {heroStats.map((stat) => {
+              const Icon = stat.icon;
 
-    return (
-      <div
-        key={stat.label}
-        className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 p-5 text-center shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_0_30px_rgba(212,175,55,0.35)]"
-      >
-        {/* Glow Effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              return (
+                <div
+                  key={stat.label}
+                  className="group relative overflow-hidden rounded-2xl bg-white/10 backdrop-blur-xl border border-white/15 p-3 sm:p-5 text-center shadow-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#D4AF37] hover:shadow-[0_0_30px_rgba(212,175,55,0.35)]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#D4AF37]/10 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Icon */}
-        <div className="relative z-10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#D4AF37] to-[#F7E27E] shadow-lg group-hover:scale-110 transition-transform duration-300">
-          <Icon size={26} className="text-[#081A3B]" />
-        </div>
+                  <div className="relative z-10 mx-auto mb-2.5 sm:mb-4 flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#D4AF37] to-[#F7E27E] shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <Icon size={20} className="text-[#081A3B] sm:hidden" />
+                    <Icon size={26} className="text-[#081A3B] hidden sm:block" />
+                  </div>
 
-        {/* Value */}
-        <h3 className="relative z-10 text-2xl sm:text-3xl font-extrabold text-white">
-          {stat.value}
-        </h3>
+                  <h3 className="relative z-10 text-base sm:text-2xl md:text-3xl font-extrabold text-white leading-tight break-words">
+                    {stat.value}
+                  </h3>
 
-        {/* Divider */}
-        <div className="relative z-10 mx-auto my-3 h-[2px] w-10 rounded-full bg-[#D4AF37]" />
+                  <div className="relative z-10 mx-auto my-2 sm:my-3 h-[2px] w-8 sm:w-10 rounded-full bg-[#D4AF37]" />
 
-        {/* Label */}
-        <p className="relative z-10 text-xs sm:text-sm text-white/75 leading-relaxed">
-          {stat.label}
-        </p>
-      </div>
-    );
-  })}
-</div>
+                  <p className="relative z-10 text-[10px] sm:text-xs md:text-sm text-white/75 leading-relaxed">
+                    {stat.label}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      
-     
-     
       {/* ===================================================================
-          EXPLORE TROPHY CATEGORIES — all 11 categories, rich gold/navy cards
+          EXPLORE TROPHY CATEGORIES
       =================================================================== */}
-      <section className="py-10 sm:py-1 bg-white">
-        <div className="max-w-7xl mx-auto px-5">
-         <div className="text-center mb-14">
-  {/* Premium Badge */}
-  
+      <section className="relative py-12 sm:py-16 bg-gradient-to-b from-white via-[#FDFCF7] to-[#F8F8F6] overflow-hidden">
+        {/* Background Glow */}
+        <div className="absolute -top-20 left-0 w-80 h-80 bg-[#FFD700]/10 rounded-full blur-[140px]"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#081A3B]/5 rounded-full blur-[140px]"></div>
 
-  {/* Main Heading */}
-  <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
-    <span className="text-[#081A3B]">Explore Our</span>
-    <br />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-5">
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#081A3B]/5 border border-[#D4AF37]/30 text-[#081A3B] font-semibold text-sm tracking-wide">
+              <span className="w-2 h-2 rounded-full bg-[#FFD700]"></span>
+              Premium Trophy Collection
+              <span className="w-2 h-2 rounded-full bg-[#FFD700]"></span>
+            </span>
 
-    <span className="bg-gradient-to-r from-[#FFD700] via-[#F5C542] to-[#FFC107] bg-clip-text text-transparent">
-      Trophy Categories
-    </span>
-  </h2>
+            <h2 className="mt-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              <span className="text-[#081A3B]">Explore Our</span>
+              <br />
+              <span className="bg-gradient-to-r from-[#FFD700] via-[#F5C542] to-[#D4AF37] bg-clip-text text-transparent">
+                Trophy Categories
+              </span>
+            </h2>
 
-  {/* Premium Divider */}
-  <div className="flex items-center justify-center mt-6">
-    <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"></div>
+            {/* Premium Divider */}
+            <div className="flex justify-center items-center gap-3 mt-7">
+              <div className="w-16 sm:w-24 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"></div>
+              <span className="w-3 h-3 rounded-full bg-[#FFD700] shadow-[0_0_15px_#FFD700]"></span>
+              <span className="w-2 h-2 rounded-full bg-[#FFD700]/40"></span>
+              <span className="w-3 h-3 rounded-full bg-[#FFD700] shadow-[0_0_15px_#FFD700]"></span>
+              <div className="w-16 sm:w-24 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"></div>
+            </div>
 
-    <div className="mx-4 h-4 w-4 rounded-full bg-[#FFD700] shadow-[0_0_15px_#FFD700]"></div>
+            <p
+              className="mt-7 max-w-4xl mx-auto text-gray-600 text-base sm:text-lg lg:text-xl leading-8 sm:leading-9 font-medium"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
+            >
+              Explore our premium collection featuring
+              <span className="font-bold text-[#081A3B]"> 11 Trophy Categories </span>
+              and
+              <span className="font-bold text-[#081A3B]"> 800+ Exclusive Designs</span>.
+              Every trophy is crafted with premium finishing and can be fully customized with your
+              <span className="font-semibold text-[#081A3B]"> logo, name, engraving, branding,</span>
+              making it perfect for schools, colleges, sports tournaments, corporate awards,
+              cultural events and special celebrations.
+            </p>
+          </div>
 
-    <div className="w-20 h-[2px] bg-gradient-to-r from-transparent via-[#FFD700] to-transparent"></div>
-  </div>
+          {/* ================= FILTER TABS ================= */}
+          <div className="relative rounded-[32px] border border-[#D4AF37]/20 bg-white shadow-xl p-6 sm:p-8 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-[#FFE56A] to-[#FFD700]"></div>
+            <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-[#FFE56A] to-[#FFD700]"></div>
 
-  {/* Description */}
-  <p
-  className="mt-6 max-w-3xl mx-auto text-gray-600 text-base sm:text-lg md:text-xl leading-8 font-medium px-2"
-  style={{ fontFamily: "'Poppins', sans-serif" }}
->
-  Explore our premium collection featuring{" "}
-  <span className="font-bold text-[#0F1E3D]">11 Trophy Categories</span> and{" "}
-  <span className="font-bold text-[#0F1E3D]">800+ Exclusive Designs</span>.
-  Every trophy is expertly crafted and fully customizable with your{" "}
-  <span className="font-semibold text-[#0F1E3D]">
-    logo, name, engraving, and branding
-  </span>{" "}
-  — perfect for schools, colleges, sports tournaments, corporate awards,
-  cultural events, and special celebrations.
-</p>
-</div>
+            <span className="absolute top-[-2px] left-[-2px] w-6 h-6 border-l-[3px] border-t-[3px] border-[#FFD700] rounded-tl-[32px]"></span>
+            <span className="absolute top-[-2px] right-[-2px] w-6 h-6 border-r-[3px] border-t-[3px] border-[#FFD700] rounded-tr-[32px]"></span>
+            <span className="absolute bottom-[-2px] left-[-2px] w-6 h-6 border-l-[3px] border-b-[3px] border-[#FFD700] rounded-bl-[32px]"></span>
+            <span className="absolute bottom-[-2px] right-[-2px] w-6 h-6 border-r-[3px] border-b-[3px] border-[#FFD700] rounded-br-[32px]"></span>
 
- {/* ===================================================================
-          FILTER TABS
-      =================================================================== */}
-     <section className="py-10 bg-gradient-to-b from-[#F8F8F6] to-white">
-  <div className="max-w-7xl mx-auto px-5">
-    <div className="flex flex-wrap justify-center gap-4">
-      {filterTabs.map((item) => (
-        <button
-          key={item}
-          onClick={() => setFilter(item)}
-          className={`group relative overflow-hidden rounded-full px-6 py-3 text-sm sm:text-base font-semibold transition-all duration-500 transform hover:-translate-y-1 ${
-            filter === item
-              ? "bg-[#081A3B] text-white shadow-[0_8px_30px_rgba(8,26,59,0.35)] border border-[#D4AF37]"
-              : "bg-white text-[#081A3B] border border-[#D4AF37]/40 hover:bg-[#081A3B] hover:text-white hover:border-[#D4AF37] hover:shadow-[0_8px_25px_rgba(212,175,55,0.30)]"
-          }`}
-        >
-          <span className="relative z-10 flex items-center gap-2">
-            {item}
-          </span>
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-5">
+              {filterTabs.map((item) => (
+                <button
+                  key={item}
+                  onClick={() => updateFilter(item)}
+                  className={`group relative overflow-hidden rounded-full px-5 sm:px-7 py-3 text-sm sm:text-base font-bold transition-all duration-500
+                  ${
+                    filter === item
+                      ? "bg-gradient-to-r from-[#081A3B] to-[#0D2F66] text-white border border-[#FFD700] shadow-[0_10px_35px_rgba(212,175,55,.35)]"
+                      : "bg-[#F8F8F6] border border-[#D4AF37]/25 text-[#081A3B] hover:bg-[#081A3B] hover:text-white hover:border-[#FFD700] hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(212,175,55,.28)]"
+                  }`}
+                >
+                  <span className="relative z-10 flex items-center gap-2">
+                    {filter === item && (
+                      <span className="w-2 h-2 rounded-full bg-[#FFD700]"></span>
+                    )}
+                    {item}
+                  </span>
+                  <span
+                    className={`absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-[#FFD700] to-yellow-300 transition-all duration-500
+                    ${filter === item ? "w-full" : "w-0 group-hover:w-full"}`}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
 
-          <span
-            className={`absolute left-0 bottom-0 h-1 bg-gradient-to-r from-[#D4AF37] to-yellow-300 transition-all duration-500 ${
-              filter === item
-                ? "w-full"
-                : "w-0 group-hover:w-full"
-            }`}
-          />
-        </button>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-5">
+          {/* ================= PREMIUM CATEGORY CARDS ================= */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 mt-8 sm:mt-10">
             {categoryCards.map((cat) => {
               const Icon = cat.icon;
               const isActive = filter === cat.filterKey;
+
               return (
-                <button
+                <div
                   key={cat.id}
-                  onClick={() => setFilter(cat.filterKey)}
-                  className={`group relative rounded-2xl overflow-hidden border transition-all duration-300 text-left ${
+                  className={`group relative overflow-hidden rounded-[24px] sm:rounded-[30px] border-2 transition-all duration-500
+                  ${
                     isActive
-                      ? "border-[#D4AF37] ring-2 ring-[#D4AF37]/40 bg-gradient-to-b from-[#0B2C5D] to-[#081A3B]"
-                      : "border-gray-200 bg-gradient-to-b from-[#F8F8F6] to-white hover:border-[#D4AF37] hover:shadow-xl"
+                      ? "border-[#D4AF37] bg-gradient-to-b from-[#0B2C5D] to-[#081A3B] shadow-[0_18px_45px_rgba(212,175,55,.35)] -translate-y-1 sm:-translate-y-2"
+                      : "border-[#D4AF37]/20 bg-white hover:border-[#D4AF37] hover:-translate-y-1 sm:hover:-translate-y-2 hover:shadow-[0_18px_45px_rgba(212,175,55,.22)]"
                   }`}
                 >
-                  <div className="aspect-square w-full flex items-center justify-center p-4 relative">
-                    <div className="absolute w-24 h-24 bg-[#D4AF37]/10 rounded-full blur-2xl" />
+                  {/* Image (click to filter) */}
+                  <button
+                    type="button"
+                    onClick={() => updateFilter(cat.filterKey)}
+                    className="relative w-full h-44 sm:h-60 overflow-hidden block"
+                  >
                     <img
                       src={cat.image}
-                      alt={`${cat.title} Trophy`}
-                      className="relative z-10 h-full w-full object-contain transition duration-500 group-hover:scale-110"
+                      alt={cat.title}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                     />
+                  </button>
+
+                  {/* Floating icon badge (outside overflow-hidden image button so it's not clipped) */}
+                  <div className="relative h-0">
+                    <div className="absolute -top-5 sm:-top-6 left-1/2 -translate-x-1/2 z-10">
+                      <div
+                        className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center shadow-lg border-2 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 ${
+                          isActive
+                            ? "bg-gradient-to-r from-[#FFD700] to-yellow-400 border-white"
+                            : "bg-white border-[#FFD700]"
+                        }`}
+                      >
+                        <Icon size={16} className="text-[#081A3B] sm:hidden" />
+                        <Icon size={20} className="text-[#081A3B] hidden sm:block" />
+                      </div>
+                    </div>
                   </div>
 
-                 <div
-  className={`flex flex-col items-center justify-center gap-2 py-3 border-t ${
-    isActive
-      ? "border-white/10"
-      : "border-gray-200 group-hover:bg-[#081A3B] group-hover:border-transparent"
-  } transition-colors duration-300`}
->
-  
-  {/* ICON + TITLE */}
-  <div className="flex items-center gap-2">
-    <Icon size={16} className="text-[#D4AF37]" />
-    <span
-      className={`text-sm font-semibold ${
-        isActive
-          ? "text-white"
-          : "text-[#081A3B] group-hover:text-white"
-      }`}
-    >
-      {cat.title}
-    </span>
-  </div>
+                  {/* Content */}
+                  <div className="pt-6 sm:pt-8 pb-4 sm:pb-5 px-2.5 sm:px-3 flex flex-col items-center">
+                    <h3
+                      className={`text-xs sm:text-base font-bold text-center transition ${
+                        isActive ? "text-white" : "text-[#081A3B]"
+                      }`}
+                    >
+                      {cat.title}
+                    </h3>
 
-  {/* ✅ WHATSAPP BUTTON HERE (ADD THIS) */}
-  <button
-    onClick={(e) => {
-      e.stopPropagation();
-      handleWhatsAppEnquiry(cat.title);
-    }}
-    className="bg-green-500 text-white text-xs px-3 py-1 rounded-lg hover:bg-green-600 transition"
-  >
-    Enquiry Now
-  </button>
+                    <div className="mt-2.5 sm:mt-3 w-full">
+                      <button
+                        type="button"
+                        onClick={() => handleWhatsAppEnquiry(`${cat.title} Trophies`)}
+                        className="w-full flex items-center justify-center gap-1 text-[10px] sm:text-xs font-bold py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-green-500 to-green-600 text-white shadow-md hover:scale-105 transition"
+                      >
+                        <MessageCircle size={12} />
+                        Enquiry
+                      </button>
+                    </div>
+                  </div>
 
-</div>
-
-                </button>
+                  {/* Bottom underline */}
+                  <span
+                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[3px] bg-gradient-to-r from-[#FFD700] to-yellow-300 transition-all duration-500 ${
+                      isActive ? "w-2/3" : "w-0 group-hover:w-2/3"
+                    }`}
+                  />
+                </div>
               );
             })}
 
-            {/* Customized Awards — highlighted differently since it's a service, not a material */}
-            <button
-              onClick={() => setFilter("Customized")}
-              className={`group relative rounded-2xl overflow-hidden border-2 border-dashed transition-all duration-300 text-left flex flex-col items-center justify-center p-4 ${
+            {/* ================= CUSTOMIZED AWARDS ================= */}
+            <div
+              onClick={() => updateFilter("Customized")}
+              className={`group relative cursor-pointer overflow-hidden rounded-[24px] sm:rounded-[30px] border-2 transition-all duration-500 flex flex-col items-center justify-center p-3.5 sm:p-6
+              ${
                 filter === "Customized"
-                  ? "border-[#D4AF37] bg-gradient-to-b from-[#0B2C5D] to-[#081A3B]"
-                  : "border-[#D4AF37]/50 bg-gradient-to-b from-[#081A3B]/5 to-white hover:border-[#D4AF37] hover:shadow-xl"
+                  ? "border-[#D4AF37] bg-gradient-to-b from-[#0B2C5D] to-[#081A3B] shadow-[0_18px_45px_rgba(212,175,55,.35)] -translate-y-2"
+                  : "border-[#D4AF37]/30 bg-gradient-to-b from-[#FDFCF8] to-white hover:border-[#D4AF37] hover:-translate-y-2 hover:shadow-[0_18px_45px_rgba(212,175,55,.22)]"
               }`}
             >
-              <div className="w-14 h-14 rounded-full bg-gradient-to-r from-[#D4AF37] to-yellow-500 flex items-center justify-center mb-3 group-hover:scale-110 transition duration-300">
-                <Wand2 size={24} className="text-[#081A3B]" />
+              {/* TOP BAR */}
+              <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+              {/* BOTTOM BAR */}
+              <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+
+              {/* CORNERS */}
+              <span className="absolute top-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-t-[3px] border-[#FFD700] rounded-tl-[30px]" />
+              <span className="absolute top-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-t-[3px] border-[#FFD700] rounded-tr-[30px]" />
+              <span className="absolute bottom-[-2px] left-[-2px] w-5 h-5 border-l-[3px] border-b-[3px] border-[#FFD700] rounded-bl-[30px]" />
+              <span className="absolute bottom-[-2px] right-[-2px] w-5 h-5 border-r-[3px] border-b-[3px] border-[#FFD700] rounded-br-[30px]" />
+
+              {/* Glow */}
+              <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#FFD700]/20 blur-3xl opacity-0 group-hover:opacity-100 transition duration-500" />
+
+              {/* Ghost Text */}
+              <div className="absolute right-3 top-2 text-6xl font-black text-[#081A3B]/5 select-none">
+                ★
               </div>
-              <span
-                className={`text-sm font-semibold text-center ${
+
+              {/* Icon */}
+              <div className="relative">
+                <div className="absolute inset-0 rounded-full bg-[#FFD700]/20 blur-2xl scale-150 group-hover:scale-[2] transition duration-500" />
+
+                <div className="relative w-12 h-12 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-[#FFD700] to-yellow-400 flex items-center justify-center shadow-lg group-hover:rotate-12 group-hover:scale-110 transition duration-500">
+                  <Wand2 size={22} className="text-[#081A3B] sm:hidden" />
+                  <Wand2 size={34} className="text-[#081A3B] hidden sm:block" />
+                </div>
+              </div>
+
+              {/* Dots */}
+              <div className="flex justify-center gap-1.5 sm:gap-2 mt-3 sm:mt-6">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#FFD700]" />
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#FFD700]/40" />
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#FFD700]" />
+              </div>
+
+              {/* Title */}
+              <h3
+                className={`mt-2.5 sm:mt-5 text-xs sm:text-lg font-bold text-center transition ${
                   filter === "Customized" ? "text-white" : "text-[#081A3B]"
                 }`}
               >
                 Customized
                 <br />
                 Awards
-              </span>
-            </button>
-            
+              </h3>
+
+              {/* Description */}
+              <p
+                className={`hidden sm:block mt-3 text-center text-sm leading-6 px-2 ${
+                  filter === "Customized" ? "text-gray-300" : "text-gray-500"
+                }`}
+              >
+                Create a unique trophy with your logo, name,
+                branding and premium engraving.
+              </p>
+
+              {/* CTA */}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleWhatsAppEnquiry("Customized Awards");
+                }}
+                className="mt-2.5 sm:mt-6 w-full rounded-full bg-gradient-to-r from-green-500 to-green-600 py-1.5 sm:py-3 text-[10px] sm:text-sm font-semibold text-white shadow-lg hover:scale-105 transition duration-300"
+              >
+                {" "}
+                <span className="hidden sm:inline">Design My Trophy</span>
+                <span className="sm:hidden">Enquiry</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
-     
-
       {/* ===================================================================
-          FEATURED PRODUCTS — badges + price + view details + enquire
+          FEATURED PRODUCTS
       =================================================================== */}
-     <section className="py-8 sm:py-10 lg:py-14 bg-gradient-to-b from-[#F8F8F6] via-white to-[#F8F8F6]">
-  <div className="max-w-7xl mx-auto px-4 sm:px-5">
+      <section className="py-8 sm:py-10 lg:py-14 bg-gradient-to-b from-[#F8F8F6] via-white to-[#F8F8F6]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5">
 
-    {/* Heading */}
-    <div className="text-center mb-10 sm:mb-14">
+          <div className="text-center mb-8 sm:mb-14">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
+              <span className="text-[#081A3B]">Featured </span>
+              <span className="text-[#FFD700]">Products</span>
+            </h2>
 
-      <h2 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
-        <span className="text-[#081A3B]">Featured </span>
-        <span className="text-[#FFD700]">Products</span>
-      </h2>
-
-      <div className="flex justify-center items-center gap-2 sm:gap-3 mt-4 sm:mt-5">
-        <div className="h-[2px] w-10 sm:w-16 bg-[#FFD700]" />
-        <div className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-[#FFD700] shadow-[0_0_12px_#FFD700]" />
-        <div className="h-[2px] w-10 sm:w-16 bg-[#FFD700]" />
-      </div>
-<p
-  className="mt-4 sm:mt-5 max-w-3xl mx-auto px-2 text-gray-600 text-base sm:text-lg md:text-xl leading-8 font-medium"
-  style={{ fontFamily: "'Poppins', sans-serif" }}
->
-  Discover our premium collection of{" "}
-  <span className="font-semibold text-[#0F1E3D]">
-    trophies, medals, and awards
-  </span>{" "}
-  crafted with exceptional quality, elegant finishes, and precision
-  engraving to celebrate every achievement with pride.
-</p>
-    </div>
-
-    {/* Products Grid */}
-   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
-
-  {featured.map((product, index) => {
-    const { badge, price } = getPlaceholderMeta(product.id);
-
-    return (
-      <motion.div
-        key={product.id}
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: index * 0.05 }}
-        viewport={{ once: true }}
-        whileHover={{ y: -6 }}
-        className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-[#081A3B]/20 shadow-md sm:shadow-lg hover:border-[#081A3B] hover:shadow-[0_15px_30px_rgba(8,26,59,0.25)] transition-all duration-500"
-      >
-
-        {/* Badge */}
-        {badge && (
-          <span
-            className={`absolute top-2 sm:top-4 left-2 sm:left-4 z-20 px-2 sm:px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold shadow ${
-              badge === "Best Seller"
-                ? "bg-[#081A3B] text-white"
-                : "bg-[#081A3B] text-white"
-            }`}
-          >
-            {badge}
-          </span>
-        )}
-
-        {/* Image */}
-        <div className="relative h-40 sm:h-52 lg:h-64 bg-gradient-to-b from-[#EAF0F8] to-white flex items-center justify-center overflow-hidden p-3 sm:p-5">
-
-          {/* top bar */}
-          <div className="absolute top-0 left-0 h-1 w-full bg-[#081A3B]" />
-
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
-          />
-        </div>
-
-        {/* Content */}
-        <div className="p-3 sm:p-5 text-center">
-
-          <h3 className="text-sm sm:text-lg lg:text-xl font-bold text-[#081A3B] line-clamp-2 group-hover:opacity-90 transition-colors">
-            {product.name}
-          </h3>
-
-          <p className="mt-2 sm:mt-3 text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#081A3B]">
-            ₹{price}
-          </p>
-
-          <span className="text-[10px] sm:text-sm text-gray-500">
-            Starting Price
-          </span>
-
-          <div className="mx-auto mt-3 sm:mt-4 h-[2px] w-8 sm:w-12 bg-[#081A3B] rounded-full group-hover:w-20 transition-all duration-500"></div>
-
-          {/* Buttons */}
-          <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row gap-2">
-
-            <Link
-              to={`/products/${product.id}`}
-              className="flex-1 inline-flex items-center justify-center rounded-lg sm:rounded-xl border border-[#081A3B] py-2 text-xs sm:text-sm font-semibold text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition"
+            <div className="flex justify-center items-center gap-2 sm:gap-3 mt-4 sm:mt-5">
+              <div className="h-[2px] w-8 sm:w-16 bg-[#FFD700]" />
+              <div className="w-2 sm:w-3 h-2 sm:h-3 rounded-full bg-[#FFD700] shadow-[0_0_12px_#FFD700]" />
+              <div className="h-[2px] w-8 sm:w-16 bg-[#FFD700]" />
+            </div>
+            <p
+              className="mt-3 sm:mt-5 max-w-3xl mx-auto px-1 text-gray-600 text-sm sm:text-lg md:text-xl leading-7 sm:leading-8 font-medium"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
             >
-              View Details
-            </Link>
+              Discover our premium collection of{" "}
+              <span className="font-semibold text-[#0F1E3D]">
+                trophies, medals, and awards
+              </span>{" "}
+              crafted with exceptional quality, elegant finishes, and precision
+              engraving to celebrate every achievement with pride.
+            </p>
+          </div>
 
-            <a
-              href={`https://wa.me/${9307623168}?text=Hi AKS Trophy, I am interested in ${product.name}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 rounded-lg sm:rounded-xl bg-[#081A3B] py-2 text-xs sm:text-sm font-bold text-white hover:scale-105 transition"
-            >
-              <MessageCircle size={16} />
-              Enquire
-            </a>
+          {/* Products Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
 
+            {featured.map((product, index) => {
+              const { badge, price } = getPlaceholderMeta(product.id);
+
+              return (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -6 }}
+                  className="group relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-[#081A3B]/20 shadow-md sm:shadow-lg hover:border-[#081A3B] hover:shadow-[0_15px_30px_rgba(8,26,59,0.25)] transition-all duration-500"
+                >
+                  {badge && (
+                    <span className="absolute top-2 sm:top-4 left-2 sm:left-4 z-20 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-xs font-bold shadow bg-[#081A3B] text-white">
+                      {badge}
+                    </span>
+                  )}
+
+                  <div className="relative h-32 sm:h-52 lg:h-64 bg-gradient-to-b from-[#EAF0F8] to-white flex items-center justify-center overflow-hidden p-2.5 sm:p-5">
+                    <div className="absolute top-0 left-0 h-1 w-full bg-[#081A3B]" />
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="p-2.5 sm:p-5 text-center">
+                    <h3 className="text-xs sm:text-lg lg:text-xl font-bold text-[#081A3B] line-clamp-2 group-hover:opacity-90 transition-colors min-h-[32px] sm:min-h-0">
+                      {product.name}
+                    </h3>
+
+                    <p className="mt-1.5 sm:mt-3 text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#081A3B]">
+                      ₹{price}
+                    </p>
+
+                    <span className="text-[9px] sm:text-sm text-gray-500">
+                      Starting Price
+                    </span>
+
+                    <div className="mx-auto mt-2 sm:mt-4 h-[2px] w-6 sm:w-12 bg-[#081A3B] rounded-full group-hover:w-20 transition-all duration-500"></div>
+
+                    <div className="mt-3 sm:mt-5 flex flex-col sm:flex-row gap-1.5 sm:gap-2">
+                      <Link
+                        to={`/products/${product.id}`}
+                        className="flex-1 inline-flex items-center justify-center rounded-lg sm:rounded-xl border border-[#081A3B] py-1.5 sm:py-2 text-[10px] sm:text-sm font-semibold text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition"
+                      >
+                        View Details
+                      </Link>
+
+                      <a
+                        href={`https://wa.me/919307623168?text=${encodeURIComponent(
+                          `Hi AKS Trophy, I am interested in ${product.name}`
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-1 inline-flex items-center justify-center gap-1 sm:gap-2 rounded-lg sm:rounded-xl bg-[#081A3B] py-1.5 sm:py-2 text-[10px] sm:text-sm font-bold text-white hover:scale-105 transition"
+                      >
+                        <MessageCircle size={14} />
+                        Enquire
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="absolute bottom-0 left-0 h-1 w-0 bg-[#081A3B] group-hover:w-full transition-all duration-500"></div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
-
-        {/* Bottom Hover Bar */}
-        <div className="absolute bottom-0 left-0 h-1 w-0 bg-[#081A3B] group-hover:w-full transition-all duration-500"></div>
-
-      </motion.div>
-    );
-  })}
-</div>
-
-
-
-
-  </div>
-</section>
-
-      
+      </section>
 
       {/* ===================================================================
-          MORE PRODUCTS (remaining items, only if there are any)
+          MORE PRODUCTS
       =================================================================== */}
       {remaining.length > 0 && (
-        <section className="py-14 bg-[#F8F8F6]">
+        <section className="py-10 sm:py-14 bg-[#F8F8F6]">
           <div className="max-w-6xl mx-auto px-4">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#081A3B]">
+            <div className="text-center mb-6 sm:mb-8">
+              <h2 className="text-xl sm:text-3xl font-bold text-[#081A3B]">
                 More <span className="text-[#D4AF37]">Products</span>
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
               {remaining.map((product, index) => {
                 const { badge, price } = getPlaceholderMeta(product.id);
                 return (
@@ -591,7 +655,7 @@ const Products = () => {
                   >
                     {badge && (
                       <span
-                        className={`absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full text-[11px] font-semibold shadow ${
+                        className={`absolute top-2 sm:top-3 left-2 sm:left-3 z-10 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-semibold shadow ${
                           badge === "Best Seller"
                             ? "bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-[#081A3B]"
                             : "bg-[#081A3B] text-white"
@@ -601,7 +665,7 @@ const Products = () => {
                       </span>
                     )}
 
-                    <div className="w-full h-52 sm:h-60 md:h-64 bg-white flex items-center justify-center p-3">
+                    <div className="w-full h-36 sm:h-52 md:h-60 lg:h-64 bg-white flex items-center justify-center p-2.5 sm:p-3">
                       <img
                         src={product.image}
                         alt={product.name}
@@ -609,29 +673,30 @@ const Products = () => {
                       />
                     </div>
 
-                    <div className="p-3 flex flex-col gap-1.5 items-center">
-                      <h3 className="text-sm sm:text-base font-semibold text-[#081A3B] text-center line-clamp-2">
+                    <div className="p-2.5 sm:p-3 flex flex-col gap-1 sm:gap-1.5 items-center">
+                      <h3 className="text-xs sm:text-base font-semibold text-[#081A3B] text-center line-clamp-2 min-h-[28px] sm:min-h-0">
                         {product.name}
                       </h3>
 
-                      <p className="text-[#D4AF37] font-bold text-sm">
+                      <p className="text-[#D4AF37] font-bold text-xs sm:text-sm">
                         ₹{price}
                         <span className="text-gray-400 font-normal"> onwards</span>
                       </p>
 
-                      <div className="flex gap-2 w-full mt-2">
+                      <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2 w-full mt-1.5 sm:mt-2">
                         <Link
                           to={`/products/${product.id}`}
-                          className="flex-1 inline-flex items-center justify-center gap-1 border border-[#081A3B] text-[#081A3B] py-2 rounded-lg text-xs sm:text-sm font-semibold hover:bg-[#081A3B] hover:text-white transition"
+                          className="flex-1 inline-flex items-center justify-center gap-1 border border-[#081A3B] text-[#081A3B] py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold hover:bg-[#081A3B] hover:text-white transition"
                         >
                           View Details
                         </Link>
-
                         <a
-                          href={`https://wa.me/${9307623168}?text=Hi AKS Trophy, I am interested in ${product.name}`}
+                          href={`https://wa.me/919307623168?text=${encodeURIComponent(
+                            `Hi AKS Trophy, I am interested in ${product.name}`
+                          )}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-[#081A3B] py-2 rounded-lg text-xs sm:text-sm font-semibold hover:scale-105 transition"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#D4AF37] to-yellow-500 text-[#081A3B] py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-sm font-semibold hover:scale-105 transition"
                         >
                           <MessageCircle size={14} />
                           Enquire
@@ -649,214 +714,227 @@ const Products = () => {
       {/* ===================================================================
           FEATURES (Customization capabilities)
       =================================================================== */}
-     <section className="py-5 sm:py-5 bg-gradient-to-b from-[#F8F8F6] via-white to-[#F8F8F6] overflow-hidden">
-  <div className="max-w-7xl mx-auto px-5">
+      <section className="py-8 sm:py-5 bg-gradient-to-b from-[#F8F8F6] via-white to-[#F8F8F6] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5">
 
-    {/* Heading */}
-    <div className="text-center mb-14">
-     
-      <h2 className="mt-6 text-4xl sm:text-5xl font-extrabold leading-tight">
-        <span className="text-[#081A3B]">
-          Make It{" "}
-        </span>
+          <div className="text-center mb-10 sm:mb-14">
+            <h2 className="mt-4 sm:mt-6 text-3xl sm:text-5xl font-extrabold leading-tight">
+              <span className="text-[#081A3B]">Make It </span>
+              <span className="text-[#FFD700]">Yours</span>
+            </h2>
 
-        <span className="text-[#FFD700]">
-          Yours
-        </span>
-      </h2>
+            <div className="flex justify-center items-center gap-2.5 sm:gap-3 mt-4 sm:mt-5">
+              <div className="h-[2px] w-10 sm:w-16 bg-[#FFD700]" />
+              <div className="w-2.5 sm:w-3 h-2.5 sm:h-3 rounded-full bg-[#FFD700] shadow-[0_0_12px_#FFD700]" />
+              <div className="h-[2px] w-10 sm:w-16 bg-[#FFD700]" />
+            </div>
 
-      {/* Divider */}
-      <div className="flex justify-center items-center gap-3 mt-5">
-        <div className="h-[2px] w-16 bg-[#FFD700]" />
-        <div className="w-3 h-3 rounded-full bg-[#FFD700] shadow-[0_0_12px_#FFD700]" />
-        <div className="h-[2px] w-16 bg-[#FFD700]" />
-      </div>
+            <p
+              className="mt-4 sm:mt-5 max-w-3xl mx-auto px-1 text-gray-600 text-sm sm:text-lg md:text-xl leading-7 sm:leading-8 font-medium"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
+            >
+              Personalize every trophy with your{" "}
+              <span className="font-semibold text-[#0F1E3D]">
+                logo, name, engraving, and custom branding
+              </span>{" "}
+              — perfect for{" "}
+              <span className="font-semibold text-[#FFD700]">
+                schools, colleges, sports tournaments, corporate awards,
+              </span>{" "}
+              cultural events, and memorable celebrations.
+            </p>
+          </div>
 
-      <p
-  className="mt-5 max-w-3xl mx-auto px-2 text-gray-600 text-base sm:text-lg md:text-xl leading-8 font-medium"
-  style={{ fontFamily: "'Poppins', sans-serif" }}
->
-  Personalize every trophy with your{" "}
-  <span className="font-semibold text-[#0F1E3D]">
-    logo, name, engraving, and custom branding
-  </span>{" "}
-  — perfect for{" "}
-  <span className="font-semibold text-[#FFD700]">
-    schools, colleges, sports tournaments, corporate awards,
-  </span>{" "}
-  cultural events, and memorable celebrations.
-</p>
-    </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-7">
+            {featureCards.map((item) => {
+              const Icon = item.icon;
 
-    {/* Cards */}
-   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7">
+              return (
+                <div
+                  key={item.title}
+                  className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/30 bg-white p-6 sm:p-8 text-center shadow-lg transition-all duration-500 hover:-translate-y-3 hover:border-[#FFD700] hover:bg-[#081A3B] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)]"
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#FFD700]/15 via-transparent to-[#081A3B]/20"></div>
 
-  {featureCards.map((item) => {
-    const Icon = item.icon;
+                  <div className="relative z-10 mx-auto mb-5 sm:mb-6 flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-[#FFD700] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                    <Icon size={32} className="text-[#081A3B] sm:hidden" />
+                    <Icon size={40} className="text-[#081A3B] hidden sm:block" />
+                  </div>
 
-    return (
-      <div
-        key={item.title}
-        className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/30 bg-white p-8 text-center shadow-lg transition-all duration-500 hover:-translate-y-3 hover:border-[#FFD700] hover:bg-[#081A3B] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)]"
-      >
-        {/* Glow */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500 bg-gradient-to-br from-[#FFD700]/15 via-transparent to-[#081A3B]/20"></div>
+                  <h3 className="relative z-10 text-xl sm:text-2xl font-bold text-[#081A3B] group-hover:text-[#FFD700] transition-colors duration-300">
+                    {item.title}
+                  </h3>
 
-        {/* Icon */}
-        <div className="relative z-10 mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#FFD700] shadow-xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
-          <Icon size={40} className="text-[#081A3B]" />
+                  <div className="relative z-10 mx-auto mt-3 sm:mt-4 h-[2px] w-10 sm:w-12 bg-[#FFD700] group-hover:w-20 transition-all duration-500"></div>
+
+                  <p className="relative z-10 mt-3 sm:mt-4 text-sm sm:text-base text-gray-600 leading-6 sm:leading-7 transition-colors duration-300 group-hover:text-white">
+                    Premium quality customization with precise finishing and elegant craftsmanship.
+                  </p>
+
+                  <div className="absolute bottom-0 left-0 w-full h-1 bg-[#FFD700] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
+      </section>
 
-        {/* Title (INCREASED FONT) */}
-        <h3 className="relative z-10 text-2xl font-bold text-[#081A3B] group-hover:text-[#FFD700] transition-colors duration-300">
-          {item.title}
-        </h3>
-
-        {/* Divider */}
-        <div className="relative z-10 mx-auto mt-4 h-[2px] w-12 bg-[#FFD700] group-hover:w-20 transition-all duration-500"></div>
-
-        {/* Description (INCREASED FONT) */}
-        <p className="relative z-10 mt-4 text-base text-gray-600 leading-7 transition-colors duration-300 group-hover:text-white">
-          Premium quality customization with precise finishing and elegant craftsmanship.
-        </p>
-
-        {/* Bottom Accent */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-[#FFD700] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"></div>
-      </div>
-    );
-  })}
-</div>
-
-  </div>
-</section>
       {/* ===================================================================
           BULK ORDER / FOOTER CTA
       =================================================================== */}
-     <section className="relative py-5 sm:py-10 bg-white overflow-hidden">
-  {/* Background Decoration */}
-  <div className="absolute -top-24 -left-20 w-80 h-80 rounded-full bg-[#FFD700]/15 blur-[120px]" />
-  <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-[#1E4D8C]/10 blur-[140px]" />
+      <section className="relative py-10 sm:py-10 bg-white overflow-hidden">
+        <div className="absolute -top-16 -left-16 sm:-top-24 sm:-left-20 w-56 sm:w-80 h-56 sm:h-80 rounded-full bg-[#FFD700]/15 blur-[80px] sm:blur-[120px]" />
+        <div className="absolute -bottom-16 -right-16 sm:-bottom-20 sm:-right-20 w-64 sm:w-96 h-64 sm:h-96 rounded-full bg-[#1E4D8C]/10 blur-[100px] sm:blur-[140px]" />
 
-  <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle,#FFD700_1px,transparent_1px)] bg-[size:28px_28px]" />
+        <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle,#FFD700_1px,transparent_1px)] bg-[size:28px_28px]" />
 
-  <div className="relative z-10 max-w-6xl mx-auto px-5">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-5">
 
-    {/* Heading */}
-    <div className="text-center">
-     
-      <h2 className="mt-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-[#081A3B]">
-        Ready To Order
-        <br />
-        <span className="text-[#FFD700]">
-          Your Trophy?
-        </span>
-      </h2>
+          <div className="text-center">
+            <h2 className="mt-4 sm:mt-6 text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-[#081A3B]">
+              Ready To Order
+              {" "}
+              <span className="text-[#FFD700]">Your Trophy?</span>
+            </h2>
+            <div className="flex justify-center items-center gap-3 mt-6">
+              <div className="h-[2px] w-14 bg-gradient-to-r from-transparent to-[#FFD700]" />
+              <div className="w-2 h-2 rounded-full bg-[#FFD700]" />
+              <div className="w-2 h-2 rounded-full bg-[#FFD700]/50" />
+              <div className="w-2 h-2 rounded-full bg-[#FFD700]" />
+              <div className="h-[2px] w-14 bg-gradient-to-l from-transparent to-[#FFD700]" />
+            </div>
 
-      <p className="mt-6 max-w-2xl mx-auto text-gray-600 text-base sm:text-lg leading-8">
-        Choose from <span className="font-bold text-[#FFD700]">800+</span>
-        premium trophy designs with custom engraving, wholesale pricing and
-        fast delivery across Maharashtra.
-      </p>
-    </div>
+            <p
+              className="mt-4 sm:mt-6 max-w-3xl mx-auto px-2 text-gray-600 text-base sm:text-lg md:text-xl leading-8 font-medium"
+              style={{ fontFamily: "'Poppins', sans-serif" }}
+            >
+              Choose from{" "}
+              <span className="font-bold text-[#FFB800]">800+ Premium Trophy Designs</span>{" "}
+              featuring custom engraving, logo branding, wholesale pricing, and{" "}
+              <span className="font-semibold text-[#0F1E3D]">
+                fast delivery across Maharashtra.
+              </span>
+            </p>
+          </div>
 
-    {/* Stats */}
-   {/* Stats */}
-<div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-14">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 mt-12 sm:mt-16">
 
-  {/* Card 1 */}
-  <div className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/20 bg-white p-8 text-center shadow-lg hover:-translate-y-2 hover:border-[#FFD700] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)] transition-all duration-500">
+            {/* Card 1 */}
+            <div className="group relative overflow-hidden rounded-[32px] border-2 border-[#FFD700]/20 bg-white p-8 sm:p-10 text-center shadow-lg hover:-translate-y-3 hover:border-[#FFD700] hover:shadow-[0_18px_45px_rgba(255,215,0,0.25)] transition-all duration-500">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-[#FFD700]/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+              <span className="absolute top-[-2px] left-[-2px] w-6 h-6 border-t-[3px] border-l-[3px] border-[#FFD700] rounded-tl-[32px]" />
+              <span className="absolute top-[-2px] right-[-2px] w-6 h-6 border-t-[3px] border-r-[3px] border-[#FFD700] rounded-tr-[32px]" />
+              <span className="absolute bottom-[-2px] left-[-2px] w-6 h-6 border-b-[3px] border-l-[3px] border-[#FFD700] rounded-bl-[32px]" />
+              <span className="absolute bottom-[-2px] right-[-2px] w-6 h-6 border-b-[3px] border-r-[3px] border-[#FFD700] rounded-br-[32px]" />
+              <div className="absolute right-5 top-3 text-7xl font-black text-[#081A3B]/5 select-none">01</div>
 
-    <span className="absolute top-0 left-0 w-full h-1 bg-[#FFD700]"></span>
+              <h3 className="relative text-5xl sm:text-6xl font-black text-[#081A3B] group-hover:scale-110 transition duration-300">
+                800+
+              </h3>
 
-    <h3 className="text-5xl font-extrabold text-[#081A3B] group-hover:scale-110 transition duration-300">
-      800+
-    </h3>
+              <div className="flex justify-center gap-2 mt-5">
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+              </div>
 
-    <div className="mx-auto mt-4 h-[3px] w-12 rounded-full bg-[#081A3B] group-hover:w-20 transition-all duration-500"></div>
+              <p className="mt-6 text-2xl font-bold text-[#081A3B]">Premium Designs</p>
 
-    <p className="mt-5 text-xl font-semibold text-[#081A3B]">
-      Premium Designs
-    </p>
+              <p className="mt-4 text-gray-600 text-base sm:text-lg leading-8 font-medium">
+                Wide collection of customized trophies crafted for schools,
+                corporate events, sports competitions and every special occasion.
+              </p>
+            </div>
 
-    <p className="mt-2 text-gray-500 text-sm leading-6">
-      Wide collection of customized trophies for every occasion.
-    </p>
-  </div>
+            {/* Card 2 */}
+            <div className="group relative overflow-hidden rounded-[32px] border-2 border-[#FFD700]/20 bg-white p-8 sm:p-10 text-center shadow-lg hover:-translate-y-3 hover:border-[#FFD700] hover:shadow-[0_18px_45px_rgba(255,215,0,0.25)] transition-all duration-500">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-[#FFD700]/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+              <span className="absolute top-[-2px] left-[-2px] w-6 h-6 border-t-[3px] border-l-[3px] border-[#FFD700] rounded-tl-[32px]" />
+              <span className="absolute top-[-2px] right-[-2px] w-6 h-6 border-t-[3px] border-r-[3px] border-[#FFD700] rounded-tr-[32px]" />
+              <span className="absolute bottom-[-2px] left-[-2px] w-6 h-6 border-b-[3px] border-l-[3px] border-[#FFD700] rounded-bl-[32px]" />
+              <span className="absolute bottom-[-2px] right-[-2px] w-6 h-6 border-b-[3px] border-r-[3px] border-[#FFD700] rounded-br-[32px]" />
+              <div className="absolute right-5 top-3 text-7xl font-black text-[#081A3B]/5 select-none">02</div>
 
-  {/* Card 2 */}
-  <div className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/20 bg-white p-8 text-center shadow-lg hover:-translate-y-2 hover:border-[#FFD700] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)] transition-all duration-500">
+              <h3 className="relative text-5xl sm:text-6xl font-black text-[#081A3B]">₹50+</h3>
 
-    <span className="absolute top-0 left-0 w-full h-1 bg-[#FFD700]"></span>
+              <div className="flex justify-center gap-2 mt-5">
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+              </div>
 
-    <h3 className="text-5xl font-extrabold text-[#081A3B] group-hover:scale-110 transition duration-300">
-      ₹50+
-    </h3>
+              <p className="mt-6 text-2xl font-bold text-[#081A3B]">Starting Price</p>
 
-    <div className="mx-auto mt-4 h-[3px] w-12 rounded-full bg-[#081A3B] group-hover:w-20 transition-all duration-500"></div>
+              <p className="mt-4 text-gray-600 text-base sm:text-lg leading-8 font-medium">
+                Affordable pricing with premium quality trophies, awards and
+                customized mementos for every budget.
+              </p>
+            </div>
 
-    <p className="mt-5 text-xl font-semibold text-[#081A3B]">
-      Starting Price
-    </p>
+            {/* Card 3 */}
+            <div className="group relative overflow-hidden rounded-[32px] border-2 border-[#FFD700]/20 bg-white p-8 sm:p-10 text-center shadow-lg hover:-translate-y-3 hover:border-[#FFD700] hover:shadow-[0_18px_45px_rgba(255,215,0,0.25)] transition-all duration-500">
+              <div className="absolute top-0 right-0 w-28 h-28 bg-[#FFD700]/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute top-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+              <div className="absolute bottom-0 left-0 right-0 h-[4px] bg-gradient-to-r from-[#FFD700] via-yellow-300 to-[#FFD700]" />
+              <span className="absolute top-[-2px] left-[-2px] w-6 h-6 border-t-[3px] border-l-[3px] border-[#FFD700] rounded-tl-[32px]" />
+              <span className="absolute top-[-2px] right-[-2px] w-6 h-6 border-t-[3px] border-r-[3px] border-[#FFD700] rounded-tr-[32px]" />
+              <span className="absolute bottom-[-2px] left-[-2px] w-6 h-6 border-b-[3px] border-l-[3px] border-[#FFD700] rounded-bl-[32px]" />
+              <span className="absolute bottom-[-2px] right-[-2px] w-6 h-6 border-b-[3px] border-r-[3px] border-[#FFD700] rounded-br-[32px]" />
+              <div className="absolute right-5 top-3 text-7xl font-black text-[#081A3B]/5 select-none">03</div>
 
-    <p className="mt-2 text-gray-500 text-sm leading-6">
-      Affordable pricing with premium quality craftsmanship.
-    </p>
-  </div>
+              <h3 className="relative text-5xl sm:text-6xl font-black text-[#081A3B]">Fast</h3>
 
-  {/* Card 3 */}
-  <div className="group relative overflow-hidden rounded-3xl border border-[#FFD700]/20 bg-white p-8 text-center shadow-lg hover:-translate-y-2 hover:border-[#FFD700] hover:shadow-[0_15px_40px_rgba(255,215,0,0.25)] transition-all duration-500">
+              <div className="flex justify-center gap-2 mt-5">
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]/40" />
+                <span className="w-2 h-2 rounded-full bg-[#FFD700]" />
+              </div>
 
-    <span className="absolute top-0 left-0 w-full h-1 bg-[#FFD700]"></span>
+              <p className="mt-6 text-2xl font-bold text-[#081A3B]">Quick Delivery</p>
 
-    <h3 className="text-5xl font-extrabold text-[#081A3B] group-hover:scale-110 transition duration-300">
-      Fast
-    </h3>
+              <p className="mt-4 text-gray-600 text-base sm:text-lg leading-8 font-medium">
+                Fast, safe and reliable delivery across Maharashtra with complete
+                support for bulk and urgent orders.
+              </p>
+            </div>
 
-    <div className="mx-auto mt-4 h-[3px] w-12 rounded-full bg-[#081A3B] group-hover:w-20 transition-all duration-500"></div>
+          </div>
 
-    <p className="mt-5 text-xl font-semibold text-[#081A3B]">
-      Quick Delivery
-    </p>
+          <div className="mt-10 sm:mt-14 flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
+            <a
+              href="tel:+919307623168"
+              className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-[#081A3B] px-6 sm:px-8 py-3 sm:py-4 font-semibold text-sm sm:text-base text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition-all duration-300 hover:scale-105"
+            >
+              <Phone size={18} />
+              Call Now
+            </a>
 
-    <p className="mt-2 text-gray-500 text-sm leading-6">
-      Safe & fast delivery across Maharashtra with bulk order support.
-    </p>
-  </div>
+            <a
+              href="https://wa.me/919307623168"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FFD700] px-6 sm:px-8 py-3 sm:py-4 font-bold text-sm sm:text-base text-[#081A3B] shadow-lg hover:scale-105"
+            >
+              <MessageCircle size={18} />
+              WhatsApp
+            </a>
 
-</div>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#081A3B] px-6 sm:px-8 py-3 sm:py-4 font-bold text-sm sm:text-base text-white hover:bg-[#FFD700] hover:text-[#081A3B] transition-all duration-300 hover:scale-105"
+            >
+              Get Quote
+              <ArrowRight size={18} />
+            </Link>
+          </div>
 
-{/* Buttons */}
-<div className="mt-14 flex flex-wrap justify-center gap-4">
-
-  <a
-    href="tel:+9307623168"
-    className="inline-flex items-center gap-2 rounded-full border-2 border-[#081A3B] px-8 py-4 font-semibold text-[#081A3B] hover:bg-[#081A3B] hover:text-white transition-all duration-300 hover:scale-105"
-  >
-    <Phone size={18} />
-    Call Now
-  </a>
-
-  <a
-    href={`https://wa.me/${9307623168}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center gap-2 rounded-full bg-[#FFD700] px-8 py-4 font-bold text-[#081A3B] shadow-lg hover:scale-105 hover:shadow-[0_15px_35px_rgba(255,215,0,0.35)] transition-all duration-300"
-  >
-    <MessageCircle size={18} />
-    WhatsApp
-  </a>
-
-  <a
-    href="/contact"
-    className="inline-flex items-center gap-2 rounded-full bg-[#081A3B] px-8 py-4 font-bold text-white hover:bg-[#FFD700] hover:text-[#081A3B] transition-all duration-300 hover:scale-105"
-  >
-    Get Quote
-    <ArrowRight size={18} />
-  </a>
-
-</div>
-  </div>
-</section>
+        </div>
+      </section>
     </>
   );
 };

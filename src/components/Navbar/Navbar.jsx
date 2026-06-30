@@ -28,7 +28,6 @@ import {
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
 
   const navLink =
     "relative text-white font-medium text-[15px] whitespace-nowrap hover:text-yellow-400 transition duration-300 after:absolute after:left-0 after:-bottom-2 after:w-0 after:h-[2px] after:bg-yellow-400 after:transition-all after:duration-300 hover:after:w-full";
@@ -49,29 +48,22 @@ const Navbar = () => {
 
   // Products list data (desktop dropdown + mobile accordion share this)
   // All icons use gold/yellow to match the reference design.
-  const productLinks = [
-    { to: "/products", label: "All Products", icon: <FaBoxOpen className="text-yellow-400" /> },
-    { to: "/best-sellers", label: "Best Sellers", icon: <FaFire className="text-yellow-400" /> },
-    { to: "/new-arrivals", label: "New Arrivals", icon: <FaStar className="text-yellow-400" /> },
-    { to: "/premium-collection", label: "Premium Collection", icon: <FaCrown className="text-yellow-400" /> },
-    { to: "/customized-awards", label: "Customized Awards", icon: <FaPalette className="text-yellow-400" /> },
-  ];
-
+  
   // Categories list data (desktop dropdown + mobile accordion share this)
   // Icons matched to reference screenshot: Wooden/Metal/Sports Cups = trophy,
   // Acrylic/Medals = medal, Glass/Shields = shield, Fiber = people/group,
   // Mementos = gift. All icons use gold/yellow to match the reference design.
   const categoryLinks = [
-    { to: "/products", label: "Wooden Trophy", icon: <FaTrophy className="text-yellow-400" /> },
-    { to: "/products", label: "Acrylic Trophy", icon: <FaMedal className="text-yellow-400" /> },
-    { to: "/products", label: "Metal Trophy", icon: <FaTrophy className="text-yellow-400" /> },
-    { to: "/products", label: "Glass Trophy", icon: <FaShieldAlt className="text-yellow-400" /> },
-    { to: "/products", label: "Fiber Trophy", icon: <FaUsers className="text-yellow-400" /> },
-    { to: "/products", label: "Sports Cups", icon: <FaTrophy className="text-yellow-400" /> },
-    { to: "/products", label: "Shields", icon: <FaShieldAlt className="text-yellow-400" /> },
-    { to: "/products", label: "Medals", icon: <FaMedal className="text-yellow-400" /> },
-    { to: "/products", label: "Mementos", icon: <FaGift className="text-yellow-400" /> },
-  ];
+  { to: "/products?category=Wooden", label: "Wooden Trophy", icon: <FaTrophy className="text-yellow-400" /> },
+  { to: "/products?category=Acrylic", label: "Acrylic Trophy", icon: <FaMedal className="text-yellow-400" /> },
+  { to: "/products?category=Metal", label: "Metal Trophy", icon: <FaTrophy className="text-yellow-400" /> },
+  { to: "/products?category=Glass", label: "Glass Trophy", icon: <FaShieldAlt className="text-yellow-400" /> },
+  { to: "/products?category=Fiber", label: "Fiber Trophy", icon: <FaUsers className="text-yellow-400" /> },
+  { to: "/products?category=Cup", label: "Sports Cups", icon: <FaTrophy className="text-yellow-400" /> },
+  { to: "/products?category=Shield", label: "Shields", icon: <FaShieldAlt className="text-yellow-400" /> },
+  { to: "/products?category=Medals", label: "Medals", icon: <FaMedal className="text-yellow-400" /> },
+  { to: "/products?category=Mementos", label: "Mementos", icon: <FaGift className="text-yellow-400" /> },
+];
 
   // Marquee content repeated so the scroll loop looks seamless
   const MarqueeContent = () => (
@@ -152,8 +144,7 @@ const Navbar = () => {
 
       {/* ================= MAIN NAV ================= */}
       {/* lg:top-9 pushes the navbar below the fixed desktop top bar (h-9 = 36px) so it docks right under it */}
-      <nav className="fixed top-8 lg:top-6 left-0 w-full z-60 bg-[#0B1F3A]">
-        {/* max-w-7xl + mx-auto keeps content centered and bounded
+<nav className="fixed top-8 lg:top-9 left-0 w-full z-[60] bg-[#0B1F3A]">        {/* max-w-7xl + mx-auto keeps content centered and bounded
             so nothing stretches edge-to-edge on wide screens */}
         <div className="w-full pl-0 pr-3 sm:pr-5 lg:pr-8">
           <div className="flex items-center justify-between h-[68px] sm:h-[78px] lg:h-[88px] gap-3">
@@ -222,14 +213,14 @@ const Navbar = () => {
                   {/* gold accent line on top */}
                   <div className="h-[3px] w-full bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 sticky top-0" />
 
-                  {categoryLinks.map((item) => (
-                    <Link key={item.to} to={item.to} className={dropdownItem}>
-                      <span className={dropdownIconWrap}>{item.icon}</span>
-                      <span className="text-white text-[14px] font-medium group-hover/item:text-yellow-300 transition-colors">
-                        {item.label}
-                      </span>
-                    </Link>
-                  ))}
+                 {categoryLinks.map((item) => (
+  <Link key={item.label} to={item.to} className={dropdownItem}>
+    <span className={dropdownIconWrap}>{item.icon}</span>
+    <span className="text-white text-[14px] font-medium group-hover/item:text-yellow-300 transition-colors">
+      {item.label}
+    </span>
+  </Link>
+))}
                 </div>
 </div>
              
@@ -261,7 +252,7 @@ const Navbar = () => {
               </Link>
 
               <a
-                href="https://wa.me/919999999999"
+                href="https://wa.me/9307623168"
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-2 px-5 xl:px-6 py-2.5 rounded-full bg-green-600 text-white font-semibold shadow-lg hover:bg-green-700 hover:scale-105 transition text-[13px] xl:text-[14px] whitespace-nowrap"
@@ -369,20 +360,20 @@ const Navbar = () => {
       </Link>
 
       {/* CATEGORY LINKS */}
-      {categoryLinks.map((item) => (
-        <Link
-          key={item.to}
-          to={item.to}
-          onClick={() => {
-            setMobileProductsOpen(false);
-            setMobileOpen(false);
-          }}
-          className="flex items-center gap-3 py-2.5 px-3 rounded-lg text-gray-200 hover:bg-yellow-400/10 hover:text-yellow-300 text-[14px]"
-        >
-          <span className="text-lg">{item.icon}</span>
-          {item.label}
-        </Link>
-      ))}
+     {categoryLinks.map((item) => (
+  <Link
+    key={item.label}
+    to={item.to}
+    onClick={() => {
+      setMobileProductsOpen(false);
+      setMobileOpen(false);
+    }}
+    className="flex items-center gap-3 py-2.5 px-3 rounded-lg text-gray-200 hover:bg-yellow-400/10 hover:text-yellow-300 text-[14px]"
+  >
+    <span className="text-lg">{item.icon}</span>
+    {item.label}
+  </Link>
+))}
 
     </div>
   </div>
