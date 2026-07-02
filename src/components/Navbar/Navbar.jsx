@@ -154,11 +154,11 @@ const Navbar = () => {
               className="flex items-center justify-center lg:justify-start gap-2 flex-1"
             >
               {/* Logo */}
-              <img
-                src={logo}
-                alt="AKS Trophy House"
-                className="h-16 w-16 sm:h-20 sm:w-20 lg:h-28 lg:w-28 object-contain shrink-0"
-              />
+            <img
+  src={logo}
+  alt="AKS Trophy House"
+  className="h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 object-contain shrink-0"
+/>
 
               {/* Text */}
               <div className="min-w-0">
